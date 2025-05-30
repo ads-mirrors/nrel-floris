@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1746800350882,
+  "lastUpdate": 1748641853357,
   "repoUrl": "https://github.com/NREL/floris",
   "entries": {
     "Python Benchmark with pytest-benchmark": [
@@ -2216,6 +2216,72 @@ window.BENCHMARK_DATA = {
             "unit": "iter/sec",
             "range": "stddev: 0.0004047337787249417",
             "extra": "mean: 8.719411931501595 msec\nrounds: 73"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "rafmudaf@gmail.com",
+            "name": "Rafael M Mudafort",
+            "username": "rafmudaf"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "e03e6a5979d10fcefda6f7ae67c81256e46da44f",
+          "message": "Add WETO Stack note (#1112)\n\n* Add WETO Stack note\n\n* Change section title\n\n---------\n\nCo-authored-by: misi9170 <michael.sinner@nrel.gov>",
+          "timestamp": "2025-05-30T15:24:00-06:00",
+          "tree_id": "9c61de36dafbeae08c7341371581750e2d961270",
+          "url": "https://github.com/NREL/floris/commit/e03e6a5979d10fcefda6f7ae67c81256e46da44f"
+        },
+        "date": 1748641851326,
+        "tool": "pytest",
+        "benches": [
+          {
+            "name": "benchmarks/bench.py::test_timing_small_farm_set",
+            "value": 41.129877972913064,
+            "unit": "iter/sec",
+            "range": "stddev: 0.0008096884478386809",
+            "extra": "mean: 24.313225550014295 msec\nrounds: 40"
+          },
+          {
+            "name": "benchmarks/bench.py::test_timing_small_farm_run",
+            "value": 56.417248617352186,
+            "unit": "iter/sec",
+            "range": "stddev: 0.00027591295362255317",
+            "extra": "mean: 17.725075655185908 msec\nrounds: 29"
+          },
+          {
+            "name": "benchmarks/bench.py::test_timing_large_farm_set",
+            "value": 22.72790219132417,
+            "unit": "iter/sec",
+            "range": "stddev: 0.0011203796869754406",
+            "extra": "mean: 43.99878139134751 msec\nrounds: 23"
+          },
+          {
+            "name": "benchmarks/bench.py::test_timing_large_farm_run",
+            "value": 0.2912901658813266,
+            "unit": "iter/sec",
+            "range": "stddev: 0.018282919705749218",
+            "extra": "mean: 3.433002954199992 sec\nrounds: 5"
+          },
+          {
+            "name": "benchmarks/bench.py::test_timing_het_set",
+            "value": 34.95056563213691,
+            "unit": "iter/sec",
+            "range": "stddev: 0.0006700043267299989",
+            "extra": "mean: 28.61184023529805 msec\nrounds: 34"
+          },
+          {
+            "name": "benchmarks/bench.py::test_timing_het_run",
+            "value": 113.74291325540521,
+            "unit": "iter/sec",
+            "range": "stddev: 0.0002170087974028189",
+            "extra": "mean: 8.791756526883917 msec\nrounds: 93"
           }
         ]
       }
