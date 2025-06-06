@@ -55,7 +55,7 @@ Citation
 If FLORIS played a role in your research, please cite it. This software can be
 cited as:
 
-   FLORIS. Version 2.5.2 (2021). Available at https://github.com/NREL/floris.
+   FLORIS. Version 2.5.3 (2021). Available at https://github.com/NREL/floris.
 
 For LaTeX users:
 
@@ -63,7 +63,7 @@ For LaTeX users:
 
     @misc{FLORIS_2021,
     author = {NREL},
-    title = {FLORIS. Version 2.5.2},
+    title = {FLORIS. Version 2.5.3},
     year = {2021},
     publisher = {GitHub},
     journal = {GitHub repository},
