@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1748641853357,
+  "lastUpdate": 1749502636608,
   "repoUrl": "https://github.com/NREL/floris",
   "entries": {
     "Python Benchmark with pytest-benchmark": [
@@ -2282,6 +2282,72 @@ window.BENCHMARK_DATA = {
             "unit": "iter/sec",
             "range": "stddev: 0.0002170087974028189",
             "extra": "mean: 8.791756526883917 msec\nrounds: 93"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "bart.doekemeijer@shell.com",
+            "name": "Bart Doekemeijer",
+            "username": "Bartdoekemeijer"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "3afd40d188b38851d30d8380050729a10f4a49a6",
+          "message": "Add Nearest-Neighbor interpolation to heterogeneous wind map (#1025)\n\n* Reduce computation time massively in large het_map objects by avoiding the recalculation of the delaunay triangulation for every findex\n\n* Import copy library\n\n* Enforce appropriate shape for interpolant object\n\n* Add NN interpolation option in heterogeneousMap\n\n* Add docstring\n\n* Formatting\n\n* revert\n\n* Add difference per method\n\n* Add a test of nearest neighbor\n\n* switch keyword to nearest\n\n* Add to documentation\n\n* Tests for out of bounds evaluation point\n\n* Remove warning for NN interpolation\n\n* Ensure defaults for interp_method exist and values are copied for visualization.\n\n* Plotting improvements for plot_single_speed_multiplier\n\n* Documentation updates\n\n* Undo temporary change to example\n\n* Spelling\n\n* Switch to more explicit shape matching for values based on zeroth findex case\n\n---------\n\nCo-authored-by: Paul <paul.fleming@nrel.gov>\nCo-authored-by: misi9170 <michael.sinner@nrel.gov>",
+          "timestamp": "2025-06-09T14:34:11-06:00",
+          "tree_id": "7a8a1ec0fe5706bdf8ca4a7e734f76e5ce98522a",
+          "url": "https://github.com/NREL/floris/commit/3afd40d188b38851d30d8380050729a10f4a49a6"
+        },
+        "date": 1749502634700,
+        "tool": "pytest",
+        "benches": [
+          {
+            "name": "benchmarks/bench.py::test_timing_small_farm_set",
+            "value": 42.601362908620615,
+            "unit": "iter/sec",
+            "range": "stddev: 0.00021142003984508112",
+            "extra": "mean: 23.4734274146343 msec\nrounds: 41"
+          },
+          {
+            "name": "benchmarks/bench.py::test_timing_small_farm_run",
+            "value": 56.32248021018601,
+            "unit": "iter/sec",
+            "range": "stddev: 0.00011996250840922783",
+            "extra": "mean: 17.75489993104296 msec\nrounds: 29"
+          },
+          {
+            "name": "benchmarks/bench.py::test_timing_large_farm_set",
+            "value": 24.70938336732818,
+            "unit": "iter/sec",
+            "range": "stddev: 0.0008452981911348973",
+            "extra": "mean: 40.47045550000424 msec\nrounds: 24"
+          },
+          {
+            "name": "benchmarks/bench.py::test_timing_large_farm_run",
+            "value": 0.29194492210891493,
+            "unit": "iter/sec",
+            "range": "stddev: 0.00610364903493497",
+            "extra": "mean: 3.4253036249999695 sec\nrounds: 5"
+          },
+          {
+            "name": "benchmarks/bench.py::test_timing_het_set",
+            "value": 36.08497175626137,
+            "unit": "iter/sec",
+            "range": "stddev: 0.00022124588217190214",
+            "extra": "mean: 27.712367540553295 msec\nrounds: 37"
+          },
+          {
+            "name": "benchmarks/bench.py::test_timing_het_run",
+            "value": 117.95121511206438,
+            "unit": "iter/sec",
+            "range": "stddev: 0.00008442081218143824",
+            "extra": "mean: 8.478081374998206 msec\nrounds: 96"
           }
         ]
       }
