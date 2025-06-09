@@ -602,7 +602,7 @@ document.write(`
 <span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.path</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">mpltPath</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">attrs</span><span class="w"> </span><span class="kn">import</span> <span class="n">define</span><span class="p">,</span> <span class="n">field</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">scipy.interpolate</span><span class="w"> </span><span class="kn">import</span> <span class="n">LinearNDInterpolator</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">scipy.interpolate</span><span class="w"> </span><span class="kn">import</span> <span class="n">LinearNDInterpolator</span><span class="p">,</span> <span class="n">NearestNDInterpolator</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">scipy.spatial</span><span class="w"> </span><span class="kn">import</span> <span class="n">ConvexHull</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">shapely.geometry</span><span class="w"> </span><span class="kn">import</span> <span class="n">Polygon</span>
 
@@ -724,7 +724,11 @@ document.write(`
                 <span class="p">)</span>
         <span class="k">if</span> <span class="s2">&quot;z&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">value</span><span class="p">:</span>
             <span class="c1"># If only a 2D case, add &quot;None&quot; for the z locations</span>
-            <span class="n">value</span><span class="p">[</span><span class="s2">&quot;z&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span></div>
+            <span class="n">value</span><span class="p">[</span><span class="s2">&quot;z&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+
+        <span class="k">if</span> <span class="s2">&quot;interp_method&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">value</span><span class="p">:</span>
+            <span class="c1"># If no interpolation method is specified, default to linear</span>
+            <span class="n">value</span><span class="p">[</span><span class="s2">&quot;interp_method&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;linear&quot;</span></div>
 
 
 <div class="viewcode-block" id="FlowField.het_map_validator">
@@ -780,28 +784,34 @@ document.write(`
         <span class="c1"># If heterogeneous flow data is given, the speed ups at the defined</span>
         <span class="c1"># grid locations are determined in either 2 or 3 dimensions.</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="n">bounds</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">heterogeneous_inflow_config</span><span class="p">[</span><span class="s1">&#39;x&#39;</span><span class="p">],</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">heterogeneous_inflow_config</span><span class="p">[</span><span class="s1">&#39;y&#39;</span><span class="p">]</span>
-            <span class="p">)))</span>
-            <span class="n">hull</span> <span class="o">=</span> <span class="n">ConvexHull</span><span class="p">(</span><span class="n">bounds</span><span class="p">)</span>
-            <span class="n">polygon</span> <span class="o">=</span> <span class="n">Polygon</span><span class="p">(</span><span class="n">bounds</span><span class="p">[</span><span class="n">hull</span><span class="o">.</span><span class="n">vertices</span><span class="p">])</span>
-            <span class="n">path</span> <span class="o">=</span> <span class="n">mpltPath</span><span class="o">.</span><span class="n">Path</span><span class="p">(</span><span class="n">polygon</span><span class="o">.</span><span class="n">boundary</span><span class="o">.</span><span class="n">coords</span><span class="p">)</span>
             <span class="n">points</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">column_stack</span><span class="p">(</span>
                 <span class="p">(</span>
                     <span class="n">grid</span><span class="o">.</span><span class="n">x_sorted_inertial_frame</span><span class="o">.</span><span class="n">flatten</span><span class="p">(),</span>
                     <span class="n">grid</span><span class="o">.</span><span class="n">y_sorted_inertial_frame</span><span class="o">.</span><span class="n">flatten</span><span class="p">(),</span>
                 <span class="p">)</span>
             <span class="p">)</span>
-            <span class="n">inside</span> <span class="o">=</span> <span class="n">path</span><span class="o">.</span><span class="n">contains_points</span><span class="p">(</span><span class="n">points</span><span class="p">)</span>
-            <span class="k">if</span> <span class="ow">not</span> <span class="n">np</span><span class="o">.</span><span class="n">all</span><span class="p">(</span><span class="n">inside</span><span class="p">):</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
-                    <span class="s2">&quot;The calculated flow field contains points outside of the the user-defined &quot;</span>
-                    <span class="s2">&quot;heterogeneous inflow bounds. For these points, the interpolated value has &quot;</span>
-                    <span class="s2">&quot;been filled with the freestream wind speed. If this is not the desired &quot;</span>
-                    <span class="s2">&quot;behavior, the user will need to expand the heterogeneous inflow bounds to &quot;</span>
-                    <span class="s2">&quot;fully cover the calculated flow field area.&quot;</span>
-                <span class="p">)</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">het_map</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">NearestNDInterpolator</span><span class="p">):</span>
+                <span class="c1"># Do not check for being inside of bounds for nearest neighbor interpolation.</span>
+                <span class="k">pass</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="c1"># Create a convex hull around the user-defined heterogeneous inflow bounds</span>
+                <span class="c1"># to check if the calculated flow field is within the bounds.</span>
+                <span class="n">bounds</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">heterogeneous_inflow_config</span><span class="p">[</span><span class="s1">&#39;x&#39;</span><span class="p">],</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">heterogeneous_inflow_config</span><span class="p">[</span><span class="s1">&#39;y&#39;</span><span class="p">]</span>
+                <span class="p">)))</span>
+                <span class="n">hull</span> <span class="o">=</span> <span class="n">ConvexHull</span><span class="p">(</span><span class="n">bounds</span><span class="p">)</span>
+                <span class="n">polygon</span> <span class="o">=</span> <span class="n">Polygon</span><span class="p">(</span><span class="n">bounds</span><span class="p">[</span><span class="n">hull</span><span class="o">.</span><span class="n">vertices</span><span class="p">])</span>
+                <span class="n">path</span> <span class="o">=</span> <span class="n">mpltPath</span><span class="o">.</span><span class="n">Path</span><span class="p">(</span><span class="n">polygon</span><span class="o">.</span><span class="n">boundary</span><span class="o">.</span><span class="n">coords</span><span class="p">)</span>
+                <span class="n">inside</span> <span class="o">=</span> <span class="n">path</span><span class="o">.</span><span class="n">contains_points</span><span class="p">(</span><span class="n">points</span><span class="p">)</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="n">np</span><span class="o">.</span><span class="n">all</span><span class="p">(</span><span class="n">inside</span><span class="p">):</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
+                        <span class="s2">&quot;The calculated flow field contains points outside of the the user-defined &quot;</span>
+                        <span class="s2">&quot;heterogeneous inflow bounds. For these points, the interpolated value has &quot;</span>
+                        <span class="s2">&quot;been filled with the freestream wind speed. If this is not the desired &quot;</span>
+                        <span class="s2">&quot;behavior, the user will need to expand the heterogeneous inflow bounds to &quot;</span>
+                        <span class="s2">&quot;fully cover the calculated flow field area.&quot;</span>
+                    <span class="p">)</span>
 
             <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">het_map</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">points</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
                 <span class="n">speed_ups</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">calculate_speed_ups</span><span class="p">(</span>
@@ -907,13 +917,19 @@ document.write(`
 <span class="sd">                - **y**: A list of y locations at which the speed up factors are defined.</span>
 <span class="sd">                - **z** (optional): A list of z locations at which the speed up factors are defined.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">speed_multipliers</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">heterogeneous_inflow_config</span><span class="p">[</span><span class="s1">&#39;speed_multipliers&#39;</span><span class="p">])</span>
-        <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">heterogeneous_inflow_config</span><span class="p">[</span><span class="s1">&#39;x&#39;</span><span class="p">]</span>
-        <span class="n">y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">heterogeneous_inflow_config</span><span class="p">[</span><span class="s1">&#39;y&#39;</span><span class="p">]</span>
-        <span class="n">z</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">heterogeneous_inflow_config</span><span class="p">[</span><span class="s1">&#39;z&#39;</span><span class="p">]</span>
+        <span class="n">speed_multipliers</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">heterogeneous_inflow_config</span><span class="p">[</span><span class="s2">&quot;speed_multipliers&quot;</span><span class="p">])</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">heterogeneous_inflow_config</span><span class="p">[</span><span class="s2">&quot;x&quot;</span><span class="p">]</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">heterogeneous_inflow_config</span><span class="p">[</span><span class="s2">&quot;y&quot;</span><span class="p">]</span>
+        <span class="n">z</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">heterogeneous_inflow_config</span><span class="p">[</span><span class="s2">&quot;z&quot;</span><span class="p">]</span>
+
+        <span class="k">if</span> <span class="s2">&quot;interp_method&quot;</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">heterogeneous_inflow_config</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+            <span class="n">interp_method</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">heterogeneous_inflow_config</span><span class="p">[</span><span class="s2">&quot;interp_method&quot;</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">interp_method</span> <span class="o">=</span> <span class="s2">&quot;linear&quot;</span>
 
         <span class="c1"># Declare an empty list to store interpolants by findex</span>
         <span class="n">interps_f</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">n_findex</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">object</span><span class="p">)</span>
+
         <span class="k">if</span> <span class="n">z</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="c1"># Compute the 3-dimensional interpolants for each wind direction</span>
             <span class="c1"># Linear interpolation is used for points within the user-defined area of values,</span>
@@ -924,11 +940,17 @@ document.write(`
 
             <span class="c1"># Create triangulation using zeroth findex</span>
             <span class="n">interp_3d</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">interpolate_multiplier_xyz</span><span class="p">(</span>
-                <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">speed_multipliers</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">fill_value</span><span class="o">=</span><span class="mf">1.0</span>
+                <span class="n">x</span><span class="p">,</span>
+                <span class="n">y</span><span class="p">,</span>
+                <span class="n">z</span><span class="p">,</span>
+                <span class="n">speed_multipliers</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+                <span class="n">fill_value</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span>
+                <span class="n">interp_method</span><span class="o">=</span><span class="n">interp_method</span><span class="p">,</span>
             <span class="p">)</span>
+            <span class="n">interp_shape</span> <span class="o">=</span> <span class="n">interp_3d</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">shape</span>
             <span class="c1"># Copy the interpolant for each findex and overwrite the values</span>
             <span class="k">for</span> <span class="n">findex</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">n_findex</span><span class="p">):</span>
-                <span class="n">interp_3d</span><span class="o">.</span><span class="n">values</span> <span class="o">=</span> <span class="n">speed_multipliers</span><span class="p">[</span><span class="n">findex</span><span class="p">,</span> <span class="p">:]</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+                <span class="n">interp_3d</span><span class="o">.</span><span class="n">values</span> <span class="o">=</span> <span class="n">speed_multipliers</span><span class="p">[</span><span class="n">findex</span><span class="p">,</span> <span class="p">:]</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">interp_shape</span><span class="p">)</span>
                 <span class="n">interps_f</span><span class="p">[</span><span class="n">findex</span><span class="p">]</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="n">interp_3d</span><span class="p">)</span>
 
         <span class="k">else</span><span class="p">:</span>
@@ -940,10 +962,15 @@ document.write(`
             <span class="c1"># once and then overwrite the values for each findex.</span>
 
             <span class="c1"># Create triangulation using zeroth findex</span>
-            <span class="n">interp_2d</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">interpolate_multiplier_xy</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">speed_multipliers</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">fill_value</span><span class="o">=</span><span class="mf">1.0</span><span class="p">)</span>
+            <span class="n">interp_2d</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">interpolate_multiplier_xy</span><span class="p">(</span>
+                <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">speed_multipliers</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">fill_value</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">interp_method</span><span class="o">=</span><span class="n">interp_method</span>
+            <span class="p">)</span>
             <span class="c1"># Copy the interpolant for each findex and overwrite the values</span>
             <span class="k">for</span> <span class="n">findex</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">n_findex</span><span class="p">):</span>
-                <span class="n">interp_2d</span><span class="o">.</span><span class="n">values</span> <span class="o">=</span> <span class="n">speed_multipliers</span><span class="p">[</span><span class="n">findex</span><span class="p">,</span> <span class="p">:]</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">interp_method</span> <span class="o">==</span> <span class="s2">&quot;linear&quot;</span><span class="p">:</span>
+                    <span class="n">interp_2d</span><span class="o">.</span><span class="n">values</span> <span class="o">=</span> <span class="n">speed_multipliers</span><span class="p">[</span><span class="n">findex</span><span class="p">,</span> <span class="p">:]</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">interp_2d</span><span class="o">.</span><span class="n">values</span> <span class="o">=</span> <span class="n">speed_multipliers</span><span class="p">[</span><span class="n">findex</span><span class="p">,</span> <span class="p">:]</span>
                 <span class="n">interps_f</span><span class="p">[</span><span class="n">findex</span><span class="p">]</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="n">interp_2d</span><span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">het_map</span> <span class="o">=</span> <span class="n">interps_f</span></div>
@@ -952,10 +979,13 @@ document.write(`
 <div class="viewcode-block" id="FlowField.interpolate_multiplier_xy">
 <a class="viewcode-back" href="../../../_autosummary/floris.core.flow_field.html#floris.core.flow_field.FlowField.interpolate_multiplier_xy">[docs]</a>
     <span class="nd">@staticmethod</span>
-    <span class="k">def</span><span class="w"> </span><span class="nf">interpolate_multiplier_xy</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="n">NDArrayFloat</span><span class="p">,</span>
-                                  <span class="n">y</span><span class="p">:</span> <span class="n">NDArrayFloat</span><span class="p">,</span>
-                                  <span class="n">multiplier</span><span class="p">:</span> <span class="n">NDArrayFloat</span><span class="p">,</span>
-                                  <span class="n">fill_value</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1.0</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">interpolate_multiplier_xy</span><span class="p">(</span>
+        <span class="n">x</span><span class="p">:</span> <span class="n">NDArrayFloat</span><span class="p">,</span>
+        <span class="n">y</span><span class="p">:</span> <span class="n">NDArrayFloat</span><span class="p">,</span>
+        <span class="n">multiplier</span><span class="p">:</span> <span class="n">NDArrayFloat</span><span class="p">,</span>
+        <span class="n">fill_value</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1.0</span><span class="p">,</span>
+        <span class="n">interp_method</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;linear&quot;</span><span class="p">,</span>
+    <span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Return an interpolant for a 2D multiplier field.</span>
 
 <span class="sd">        Args:</span>
@@ -963,23 +993,31 @@ document.write(`
 <span class="sd">            y (NDArrayFloat): y locations</span>
 <span class="sd">            multiplier (NDArrayFloat): multipliers</span>
 <span class="sd">            fill_value (float): fill value for points outside the region</span>
+<span class="sd">            interp_method (str): interpolation method, either &quot;linear&quot; or &quot;nearest&quot;.</span>
+<span class="sd">                Default is &quot;linear&quot;.</span>
 
 <span class="sd">        Returns:</span>
 <span class="sd">            LinearNDInterpolator: interpolant</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-
-        <span class="k">return</span> <span class="n">LinearNDInterpolator</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)),</span> <span class="n">multiplier</span><span class="p">,</span> <span class="n">fill_value</span><span class="o">=</span><span class="n">fill_value</span><span class="p">)</span></div>
-
+        <span class="k">if</span> <span class="n">interp_method</span> <span class="o">==</span> <span class="s2">&quot;linear&quot;</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">LinearNDInterpolator</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)),</span> <span class="n">multiplier</span><span class="p">,</span> <span class="n">fill_value</span><span class="o">=</span><span class="n">fill_value</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">interp_method</span> <span class="o">==</span> <span class="s2">&quot;nearest&quot;</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">NearestNDInterpolator</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)),</span> <span class="n">multiplier</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">UserWarning</span><span class="p">(</span><span class="s2">&quot;Incompatible interpolation method specified.&quot;</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="FlowField.interpolate_multiplier_xyz">
 <a class="viewcode-back" href="../../../_autosummary/floris.core.flow_field.html#floris.core.flow_field.FlowField.interpolate_multiplier_xyz">[docs]</a>
     <span class="nd">@staticmethod</span>
-    <span class="k">def</span><span class="w"> </span><span class="nf">interpolate_multiplier_xyz</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="n">NDArrayFloat</span><span class="p">,</span>
-                                   <span class="n">y</span><span class="p">:</span> <span class="n">NDArrayFloat</span><span class="p">,</span>
-                                   <span class="n">z</span><span class="p">:</span> <span class="n">NDArrayFloat</span><span class="p">,</span>
-                                   <span class="n">multiplier</span><span class="p">:</span> <span class="n">NDArrayFloat</span><span class="p">,</span>
-                                   <span class="n">fill_value</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1.0</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">interpolate_multiplier_xyz</span><span class="p">(</span>
+        <span class="n">x</span><span class="p">:</span> <span class="n">NDArrayFloat</span><span class="p">,</span>
+        <span class="n">y</span><span class="p">:</span> <span class="n">NDArrayFloat</span><span class="p">,</span>
+        <span class="n">z</span><span class="p">:</span> <span class="n">NDArrayFloat</span><span class="p">,</span>
+        <span class="n">multiplier</span><span class="p">:</span> <span class="n">NDArrayFloat</span><span class="p">,</span>
+        <span class="n">fill_value</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1.0</span><span class="p">,</span>
+        <span class="n">interp_method</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;linear&quot;</span><span class="p">,</span>
+    <span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Return an interpolant for a 3D multiplier field.</span>
 
 <span class="sd">        Args:</span>
@@ -988,12 +1026,19 @@ document.write(`
 <span class="sd">            z (NDArrayFloat): z locations</span>
 <span class="sd">            multiplier (NDArrayFloat): multipliers</span>
 <span class="sd">            fill_value (float): fill value for points outside the region</span>
+<span class="sd">            interp_method (str): interpolation method, either &quot;linear&quot; or &quot;nearest&quot;.</span>
+<span class="sd">                Default is &quot;linear&quot;.</span>
 
 <span class="sd">        Returns:</span>
 <span class="sd">            LinearNDInterpolator: interpolant</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
-        <span class="k">return</span> <span class="n">LinearNDInterpolator</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">)),</span> <span class="n">multiplier</span><span class="p">,</span> <span class="n">fill_value</span><span class="o">=</span><span class="n">fill_value</span><span class="p">)</span></div>
+        <span class="k">if</span> <span class="n">interp_method</span> <span class="o">==</span> <span class="s2">&quot;linear&quot;</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">LinearNDInterpolator</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">)),</span> <span class="n">multiplier</span><span class="p">,</span> <span class="n">fill_value</span><span class="o">=</span><span class="n">fill_value</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">interp_method</span> <span class="o">==</span> <span class="s2">&quot;nearest&quot;</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">NearestNDInterpolator</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">)),</span> <span class="n">multiplier</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">UserWarning</span><span class="p">(</span><span class="s2">&quot;Incompatible interpolation method specified.&quot;</span><span class="p">)</span></div>
 </div>
 
 </pre></div>

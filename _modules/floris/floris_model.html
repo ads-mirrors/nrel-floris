@@ -1705,6 +1705,7 @@ document.write(`
                 <span class="s1">&#39;y&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">core</span><span class="o">.</span><span class="n">flow_field</span><span class="o">.</span><span class="n">heterogeneous_inflow_config</span><span class="p">[</span><span class="s1">&#39;y&#39;</span><span class="p">],</span>
                 <span class="s1">&#39;speed_multipliers&#39;</span><span class="p">:</span>
                     <span class="bp">self</span><span class="o">.</span><span class="n">core</span><span class="o">.</span><span class="n">flow_field</span><span class="o">.</span><span class="n">heterogeneous_inflow_config</span><span class="p">[</span><span class="s1">&#39;speed_multipliers&#39;</span><span class="p">][</span><span class="n">findex</span><span class="p">:</span><span class="n">findex</span><span class="o">+</span><span class="mi">1</span><span class="p">],</span>
+                <span class="s1">&#39;interp_method&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">core</span><span class="o">.</span><span class="n">flow_field</span><span class="o">.</span><span class="n">heterogeneous_inflow_config</span><span class="p">[</span><span class="s1">&#39;interp_method&#39;</span><span class="p">],</span>
             <span class="p">}</span>
             <span class="k">if</span> <span class="s1">&#39;z&#39;</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">core</span><span class="o">.</span><span class="n">flow_field</span><span class="o">.</span><span class="n">heterogeneous_inflow_config</span><span class="p">:</span>
                 <span class="n">heterogeneous_inflow_config</span><span class="p">[</span><span class="s1">&#39;z&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
@@ -1820,7 +1821,7 @@ document.write(`
 <span class="sd">                Defaults to None.</span>
 <span class="sd">            y_bounds (tuple, optional): Limits of output array (in m).</span>
 <span class="sd">                Defaults to None.</span>
-<span class="sd">            finder_for_viz (int, optional): Index of the condition to visualize.</span>
+<span class="sd">            findex_for_viz (int, optional): Index of the condition to visualize.</span>
 
 <span class="sd">        Returns:</span>
 <span class="sd">            :py:class:`~.tools.cut_plane.CutPlane`: containing values</span>

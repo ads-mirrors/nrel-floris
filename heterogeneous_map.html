@@ -649,6 +649,7 @@ document.write(`
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#initialization">Initialization</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#interpolation">Interpolation</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#visualization">Visualization</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#applying-heterogeneity-to-a-florismodel">Applying heterogeneity to a FlorisModel</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#definining-a-3d-heterogeneousmap">Definining a 3D HeterogeneousMap</a></li>
@@ -715,9 +716,47 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>HeterogeneousMap with 2 dimensions
-Speeds-up defined for 5 points and
-4 wind conditions
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>HeterogeneousMap with 2 dimensions using interpolation method &quot;linear&quot;.
+Speed multipliers are defined for 5 points and 4 wind conditions.
+
+         0    1     2    3    4
+270.0  1.0  1.0  1.00  1.0  1.0
+270.0  1.0  1.0  1.00  1.0  1.0
+90.0   1.5  1.0  1.25  1.5  1.0
+90.0   1.0  1.5  1.25  1.0  1.5
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="interpolation">
+<h2>Interpolation<a class="headerlink" href="#interpolation" title="Link to this heading">#</a></h2>
+<p>By default the HeterogeneousMap uses linear interpolation to determine the speed up for a given wind speed and wind direction using <code class="docutils literal notranslate"><span class="pre">scipy.interpolate.LinearNDInterpolator</span></code>. This can be changed to nearest neighbor interpolation by setting the <code class="docutils literal notranslate"><span class="pre">interp_method</span></code> argument to <code class="docutils literal notranslate"><span class="pre">'nearest'</span></code>, which uses <code class="docutils literal notranslate"><span class="pre">scipy.interpolate.NearestNDInterpolator</span></code>. The default behavior is recovered by setting <code class="docutils literal notranslate"><span class="pre">interp_method</span></code> to <code class="docutils literal notranslate"><span class="pre">'linear'</span></code>.</p>
+<p>When <code class="docutils literal notranslate"><span class="pre">interp_method</span></code> is <code class="docutils literal notranslate"><span class="pre">'linear'</span></code>, any location outside of the convex hull of points defined by <code class="docutils literal notranslate"><span class="pre">x</span></code>, <code class="docutils literal notranslate"><span class="pre">y</span></code> and <code class="docutils literal notranslate"><span class="pre">z</span></code> are given a speed multiplier of 1.0 (that is, the freestream wind speed is applied) and an &quot;out of bounds&quot; warning is raised. When <code class="docutils literal notranslate"><span class="pre">interp_method</span></code> is <code class="docutils literal notranslate"><span class="pre">'nearest'</span></code>, points &quot;outside&quot; of the specified region still get assigned the speed multiplier of the nearest specified point, and &quot;out of bounds&quot; warning is raised.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">heterogeneous_map_nearest</span> <span class="o">=</span> <span class="n">HeterogeneousMap</span><span class="p">(</span>
+    <span class="n">x</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">250.0</span><span class="p">,</span> <span class="mf">500.0</span><span class="p">,</span> <span class="mf">500.0</span><span class="p">]),</span>
+    <span class="n">y</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">500.0</span><span class="p">,</span> <span class="mf">250.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">500.0</span><span class="p">]),</span>
+    <span class="n">speed_multipliers</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span>
+        <span class="p">[</span>
+            <span class="p">[</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">],</span>
+            <span class="p">[</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">],</span>
+            <span class="p">[</span><span class="mf">1.5</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.25</span><span class="p">,</span> <span class="mf">1.5</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">],</span>
+            <span class="p">[</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.5</span><span class="p">,</span> <span class="mf">1.25</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.5</span><span class="p">],</span>
+        <span class="p">]</span>
+    <span class="p">),</span>
+    <span class="n">wind_directions</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">270.0</span><span class="p">,</span> <span class="mf">270.0</span><span class="p">,</span> <span class="mf">90.0</span><span class="p">,</span> <span class="mf">90.0</span><span class="p">]),</span>
+    <span class="n">wind_speeds</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">5.0</span><span class="p">,</span> <span class="mf">10.0</span><span class="p">,</span> <span class="mf">5.0</span><span class="p">,</span> <span class="mf">10.0</span><span class="p">]),</span>
+    <span class="n">interp_method</span><span class="o">=</span><span class="s2">&quot;nearest&quot;</span>
+<span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">heterogeneous_map_nearest</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>HeterogeneousMap with 2 dimensions using interpolation method &quot;nearest&quot;.
+Speed multipliers are defined for 5 points and 4 wind conditions.
 
          0    1     2    3    4
 270.0  1.0  1.0  1.00  1.0  1.0
@@ -764,7 +803,7 @@ Speeds-up defined for 5 points and
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Text(0.5, 0.98, &#39;Heterogeneous speedup map for several directions and wind speeds&#39;)
 </pre></div>
 </div>
-<img alt="_images/1e725b94e59af7f1e6a13652f4b3a6aebf471665b7be067c53d9080959baa289.png" src="_images/1e725b94e59af7f1e6a13652f4b3a6aebf471665b7be067c53d9080959baa289.png" />
+<img alt="_images/accf32e6d4f0a7ca06c7c8cfcfba1dbc56673ef6500b0d4b8f1c8f97afb67d3d.png" src="_images/accf32e6d4f0a7ca06c7c8cfcfba1dbc56673ef6500b0d4b8f1c8f97afb67d3d.png" />
 </div>
 </div>
 </section>
@@ -886,9 +925,8 @@ Speeds-up defined for 5 points and
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>HeterogeneousMap with 3 dimensions
-Speeds-up defined for 12 points and
-4 wind conditions
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>HeterogeneousMap with 3 dimensions using interpolation method &quot;linear&quot;.
+Speed multipliers are defined for 12 points and 4 wind conditions.
 
         0    1    2    3    4    5    6    7    8    9    10   11
 270.0  1.0  1.0  1.0  1.0  1.1  1.1  1.1  1.1  1.5  1.5  1.5  1.5
@@ -910,7 +948,7 @@ Speeds-up defined for 12 points and
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Axes: xlabel=&#39;X (m)&#39;, ylabel=&#39;Y (m)&#39;&gt;
 </pre></div>
 </div>
-<img alt="_images/5f8f2b7bbd08e8184f559756ecd4fd3f08d2f4240e2022bff88e1135cafc496e.png" src="_images/5f8f2b7bbd08e8184f559756ecd4fd3f08d2f4240e2022bff88e1135cafc496e.png" />
+<img alt="_images/73b4bcb95a1c4b9405424f7593833615fbf88e8f3d56b1b24ac3a6f2f9083ea7.png" src="_images/73b4bcb95a1c4b9405424f7593833615fbf88e8f3d56b1b24ac3a6f2f9083ea7.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -923,7 +961,7 @@ Speeds-up defined for 12 points and
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Axes: xlabel=&#39;X (m)&#39;, ylabel=&#39;Y (m)&#39;&gt;
 </pre></div>
 </div>
-<img alt="_images/ab7235dfa535ec9fe0adf83c78f722fec4a5a25f0a1db8959a7e29f256773158.png" src="_images/ab7235dfa535ec9fe0adf83c78f722fec4a5a25f0a1db8959a7e29f256773158.png" />
+<img alt="_images/eed004e52fa08ae25f833200ae347989fd2c3fb9ac538c18b1d0d19d3ca0ec8f.png" src="_images/eed004e52fa08ae25f833200ae347989fd2c3fb9ac538c18b1d0d19d3ca0ec8f.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -1074,6 +1112,7 @@ Speeds-up defined for 12 points and
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#initialization">Initialization</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#interpolation">Interpolation</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#visualization">Visualization</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#applying-heterogeneity-to-a-florismodel">Applying heterogeneity to a FlorisModel</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#definining-a-3d-heterogeneousmap">Definining a 3D HeterogeneousMap</a></li>
