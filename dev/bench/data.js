@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1749502636608,
+  "lastUpdate": 1750257032098,
   "repoUrl": "https://github.com/NREL/floris",
   "entries": {
     "Python Benchmark with pytest-benchmark": [
@@ -2348,6 +2348,72 @@ window.BENCHMARK_DATA = {
             "unit": "iter/sec",
             "range": "stddev: 0.00008442081218143824",
             "extra": "mean: 8.478081374998206 msec\nrounds: 96"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "11406200+RRiva@users.noreply.github.com",
+            "name": "Riccardo Riva",
+            "username": "RRiva"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "65d4059e3e66fdd68c03282d9539e6d4fa18b5c0",
+          "message": "Set keepdims to True so that we don't have to add again those dimensions (#1120)\n\n* Set keepdims to True so that we don't have to add again those dimensions\n\n* Few more instances of dimension reduction and expansion\n\n* Remove unused variable from CC\n\n* Replace unneded dimension reduction and reexpansion\n\n---------\n\nCo-authored-by: misi9170 <michael.sinner@nrel.gov>",
+          "timestamp": "2025-06-18T08:06:28-06:00",
+          "tree_id": "de81097c4728373055c5710a9395beea20817aad",
+          "url": "https://github.com/NREL/floris/commit/65d4059e3e66fdd68c03282d9539e6d4fa18b5c0"
+        },
+        "date": 1750257029850,
+        "tool": "pytest",
+        "benches": [
+          {
+            "name": "benchmarks/bench.py::test_timing_small_farm_set",
+            "value": 42.91078709392345,
+            "unit": "iter/sec",
+            "range": "stddev: 0.00043679048832350755",
+            "extra": "mean: 23.304163538440637 msec\nrounds: 39"
+          },
+          {
+            "name": "benchmarks/bench.py::test_timing_small_farm_run",
+            "value": 56.995629066231906,
+            "unit": "iter/sec",
+            "range": "stddev: 0.00011855745561387089",
+            "extra": "mean: 17.545205068935157 msec\nrounds: 29"
+          },
+          {
+            "name": "benchmarks/bench.py::test_timing_large_farm_set",
+            "value": 23.99023259271512,
+            "unit": "iter/sec",
+            "range": "stddev: 0.0009999992494255938",
+            "extra": "mean: 41.68363087499453 msec\nrounds: 24"
+          },
+          {
+            "name": "benchmarks/bench.py::test_timing_large_farm_run",
+            "value": 0.2928541379925413,
+            "unit": "iter/sec",
+            "range": "stddev: 0.013373466270767822",
+            "extra": "mean: 3.414669182599937 sec\nrounds: 5"
+          },
+          {
+            "name": "benchmarks/bench.py::test_timing_het_set",
+            "value": 34.75430921865735,
+            "unit": "iter/sec",
+            "range": "stddev: 0.0014577581569567397",
+            "extra": "mean: 28.773410333333988 msec\nrounds: 36"
+          },
+          {
+            "name": "benchmarks/bench.py::test_timing_het_run",
+            "value": 116.37665432660911,
+            "unit": "iter/sec",
+            "range": "stddev: 0.0006853613113217658",
+            "extra": "mean: 8.592788697924902 msec\nrounds: 96"
           }
         ]
       }
