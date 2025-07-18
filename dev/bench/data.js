@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1750257032098,
+  "lastUpdate": 1752852190201,
   "repoUrl": "https://github.com/NREL/floris",
   "entries": {
     "Python Benchmark with pytest-benchmark": [
@@ -2414,6 +2414,72 @@ window.BENCHMARK_DATA = {
             "unit": "iter/sec",
             "range": "stddev: 0.0006853613113217658",
             "extra": "mean: 8.592788697924902 msec\nrounds: 96"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "39596329+misi9170@users.noreply.github.com",
+            "name": "misi9170",
+            "username": "misi9170"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "c6ca2d09639c95fc3d9235fbe770bc1485c2c31a",
+          "message": "Enable `sample_flow_at_points` with heterogeneity (#1110)\n\n* Add dimensions to x,y,z as needed for PointsGrid\n\n* Add tests for heterogeneity and sample_flow_at_points",
+          "timestamp": "2025-07-18T08:59:50-06:00",
+          "tree_id": "74ef3d74b210cc3c0eef90bdae30ec3159c622e6",
+          "url": "https://github.com/NREL/floris/commit/c6ca2d09639c95fc3d9235fbe770bc1485c2c31a"
+        },
+        "date": 1752852187606,
+        "tool": "pytest",
+        "benches": [
+          {
+            "name": "benchmarks/bench.py::test_timing_small_farm_set",
+            "value": 43.110823571469886,
+            "unit": "iter/sec",
+            "range": "stddev: 0.00040502961030219913",
+            "extra": "mean: 23.196031000015164 msec\nrounds: 39"
+          },
+          {
+            "name": "benchmarks/bench.py::test_timing_small_farm_run",
+            "value": 56.77062807500421,
+            "unit": "iter/sec",
+            "range": "stddev: 0.0001449222738811336",
+            "extra": "mean: 17.6147425862335 msec\nrounds: 29"
+          },
+          {
+            "name": "benchmarks/bench.py::test_timing_large_farm_set",
+            "value": 24.904748727317752,
+            "unit": "iter/sec",
+            "range": "stddev: 0.000717572070934811",
+            "extra": "mean: 40.152984916611935 msec\nrounds: 24"
+          },
+          {
+            "name": "benchmarks/bench.py::test_timing_large_farm_run",
+            "value": 0.28773786375126026,
+            "unit": "iter/sec",
+            "range": "stddev: 0.010471499696758986",
+            "extra": "mean: 3.475385501799883 sec\nrounds: 5"
+          },
+          {
+            "name": "benchmarks/bench.py::test_timing_het_set",
+            "value": 36.57604277226769,
+            "unit": "iter/sec",
+            "range": "stddev: 0.00028203292337034024",
+            "extra": "mean: 27.34030048647607 msec\nrounds: 37"
+          },
+          {
+            "name": "benchmarks/bench.py::test_timing_het_run",
+            "value": 120.54446500498665,
+            "unit": "iter/sec",
+            "range": "stddev: 0.00008121062419583208",
+            "extra": "mean: 8.295694040855649 msec\nrounds: 98"
           }
         ]
       }
