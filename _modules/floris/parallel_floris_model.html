@@ -604,7 +604,7 @@ document.write(`
 <span class="kn">from</span><span class="w"> </span><span class="nn">floris.floris_model</span><span class="w"> </span><span class="kn">import</span> <span class="n">FlorisModel</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">floris.logging_manager</span><span class="w"> </span><span class="kn">import</span> <span class="n">LoggingManager</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">floris.optimization.yaw_optimization.yaw_optimizer_sr</span><span class="w"> </span><span class="kn">import</span> <span class="n">YawOptimizationSR</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">floris.uncertain_floris_model</span><span class="w"> </span><span class="kn">import</span> <span class="n">map_turbine_powers_uncertain</span><span class="p">,</span> <span class="n">UncertainFlorisModel</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">floris.uncertain_floris_model</span><span class="w"> </span><span class="kn">import</span> <span class="n">map_turbine_values_uncertain</span><span class="p">,</span> <span class="n">UncertainFlorisModel</span>
 
 
 <span class="k">def</span><span class="w"> </span><span class="nf">_get_turbine_powers_serial</span><span class="p">(</span><span class="n">fmodel_information</span><span class="p">,</span> <span class="n">yaw_angles</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
@@ -975,8 +975,8 @@ document.write(`
         <span class="n">t2</span> <span class="o">=</span> <span class="n">timerpc</span><span class="p">()</span>
         <span class="n">turbine_powers</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_postprocessing</span><span class="p">(</span><span class="n">out</span><span class="p">)</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_is_uncertain</span><span class="p">:</span>
-            <span class="n">turbine_powers</span> <span class="o">=</span> <span class="n">map_turbine_powers_uncertain</span><span class="p">(</span>
-                <span class="n">unique_turbine_powers</span><span class="o">=</span><span class="n">turbine_powers</span><span class="p">,</span>
+            <span class="n">turbine_powers</span> <span class="o">=</span> <span class="n">map_turbine_values_uncertain</span><span class="p">(</span>
+                <span class="n">unique_turbine_values</span><span class="o">=</span><span class="n">turbine_powers</span><span class="p">,</span>
                 <span class="n">map_to_expanded_inputs</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_map_to_expanded_inputs</span><span class="p">,</span>
                 <span class="n">weights</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_weights</span><span class="p">,</span>
                 <span class="n">n_unexpanded</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_n_unexpanded</span><span class="p">,</span>
