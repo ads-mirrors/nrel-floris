@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1755037794560,
+  "lastUpdate": 1755534934589,
   "repoUrl": "https://github.com/NREL/floris",
   "entries": {
     "Python Benchmark with pytest-benchmark": [
@@ -2546,6 +2546,72 @@ window.BENCHMARK_DATA = {
             "unit": "iter/sec",
             "range": "stddev: 0.00012697512518800136",
             "extra": "mean: 8.572001830963261 msec\nrounds: 71"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "paul.fleming@nrel.gov",
+            "name": "paulf81",
+            "username": "paulf81"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "dbe076606126b861aa5e0b8c5baaa074862d1650",
+          "message": "Add `turbine_average_velocities` property to UncertainFlorisModel (#1135)\n\n* add turbine velocity property\n\n* add tests for new property\n\n* Rename mapping function for clarity\n\n* test with 0 wd_std; fails\n\n* Update to very small wd_std value\n\n* Add test for 0 wd_std; fails\n\n* Add check for valid wd_std\n\n* Remove unneeded comment\n\n---------\n\nCo-authored-by: misi9170 <michael.sinner@nrel.gov>",
+          "timestamp": "2025-08-18T10:12:07-06:00",
+          "tree_id": "b45a9ba49f4171788857803e6e5ea12d7577575d",
+          "url": "https://github.com/NREL/floris/commit/dbe076606126b861aa5e0b8c5baaa074862d1650"
+        },
+        "date": 1755534932666,
+        "tool": "pytest",
+        "benches": [
+          {
+            "name": "benchmarks/bench.py::test_timing_small_farm_set",
+            "value": 44.506680891479306,
+            "unit": "iter/sec",
+            "range": "stddev: 0.00011874766014026283",
+            "extra": "mean: 22.468536857158618 msec\nrounds: 42"
+          },
+          {
+            "name": "benchmarks/bench.py::test_timing_small_farm_run",
+            "value": 56.855212451242565,
+            "unit": "iter/sec",
+            "range": "stddev: 0.00012632167775847265",
+            "extra": "mean: 17.588536862078776 msec\nrounds: 29"
+          },
+          {
+            "name": "benchmarks/bench.py::test_timing_large_farm_set",
+            "value": 25.727698616230683,
+            "unit": "iter/sec",
+            "range": "stddev: 0.0009435798828585527",
+            "extra": "mean: 38.86861451996083 msec\nrounds: 25"
+          },
+          {
+            "name": "benchmarks/bench.py::test_timing_large_farm_run",
+            "value": 0.29765684511286905,
+            "unit": "iter/sec",
+            "range": "stddev: 0.022003422676429574",
+            "extra": "mean: 3.359573335599953 sec\nrounds: 5"
+          },
+          {
+            "name": "benchmarks/bench.py::test_timing_het_set",
+            "value": 37.18443122975456,
+            "unit": "iter/sec",
+            "range": "stddev: 0.00014193949288992492",
+            "extra": "mean: 26.892975552623522 msec\nrounds: 38"
+          },
+          {
+            "name": "benchmarks/bench.py::test_timing_het_run",
+            "value": 117.04197533408215,
+            "unit": "iter/sec",
+            "range": "stddev: 0.000790611443976433",
+            "extra": "mean: 8.543943291674813 msec\nrounds: 96"
           }
         ]
       }
