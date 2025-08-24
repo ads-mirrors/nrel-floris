@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1755534934589,
+  "lastUpdate": 1756076100270,
   "repoUrl": "https://github.com/NREL/floris",
   "entries": {
     "Python Benchmark with pytest-benchmark": [
@@ -2612,6 +2612,72 @@ window.BENCHMARK_DATA = {
             "unit": "iter/sec",
             "range": "stddev: 0.000790611443976433",
             "extra": "mean: 8.543943291674813 msec\nrounds: 96"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "122445711+hannahgielen@users.noreply.github.com",
+            "name": "hannahgielen",
+            "username": "hannahgielen"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "d5b165a0a772798f1c1ab66e902d3812b6b65cda",
+          "message": "TI sampling at arbitrary points  (#1129)\n\n* Changes for TI sampling\n\n* Redefine area_overlap for full flow_field and clear up white space\n\n* Specify tolerance on recently failing reg tests\n\n* Add example demonstrating extraction of TI from flow\n\n* Streamline solve chain to more heavily use existing code\n\n* Remove solve_ti_for_points() as no longer used\n\n* Test added but currently failing on the boundary\n\n* Add support for cc model and placeholder for emgauss\n\n* Update tests to be simpler\n\n* Mirror functionality and add tests on ParFlorisModel\n\n---------\n\nCo-authored-by: misi9170 <michael.sinner@nrel.gov>",
+          "timestamp": "2025-08-24T16:31:12-06:00",
+          "tree_id": "0a40faa2df99c603656fd2b4a26c3cc1630efb92",
+          "url": "https://github.com/NREL/floris/commit/d5b165a0a772798f1c1ab66e902d3812b6b65cda"
+        },
+        "date": 1756076098103,
+        "tool": "pytest",
+        "benches": [
+          {
+            "name": "benchmarks/bench.py::test_timing_small_farm_set",
+            "value": 42.30784165434753,
+            "unit": "iter/sec",
+            "range": "stddev: 0.00036585337677980784",
+            "extra": "mean: 23.636280200014426 msec\nrounds: 40"
+          },
+          {
+            "name": "benchmarks/bench.py::test_timing_small_farm_run",
+            "value": 55.33784713195713,
+            "unit": "iter/sec",
+            "range": "stddev: 0.0001486199236586563",
+            "extra": "mean: 18.07081503578242 msec\nrounds: 28"
+          },
+          {
+            "name": "benchmarks/bench.py::test_timing_large_farm_set",
+            "value": 24.336127650432225,
+            "unit": "iter/sec",
+            "range": "stddev: 0.0008185589224090815",
+            "extra": "mean: 41.09117170834035 msec\nrounds: 24"
+          },
+          {
+            "name": "benchmarks/bench.py::test_timing_large_farm_run",
+            "value": 0.28220106571556985,
+            "unit": "iter/sec",
+            "range": "stddev: 0.01401796877917951",
+            "extra": "mean: 3.5435727269999004 sec\nrounds: 5"
+          },
+          {
+            "name": "benchmarks/bench.py::test_timing_het_set",
+            "value": 35.37205273905309,
+            "unit": "iter/sec",
+            "range": "stddev: 0.00044034987986894824",
+            "extra": "mean: 28.27090662159773 msec\nrounds: 37"
+          },
+          {
+            "name": "benchmarks/bench.py::test_timing_het_run",
+            "value": 119.15678463031834,
+            "unit": "iter/sec",
+            "range": "stddev: 0.00039963878650672884",
+            "extra": "mean: 8.392304333340993 msec\nrounds: 75"
           }
         ]
       }
