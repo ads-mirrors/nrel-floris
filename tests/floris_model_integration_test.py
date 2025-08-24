@@ -871,3 +871,70 @@ def test_merge_floris_models():
     fmodel_list = [fmodel1, "not a floris model"]
     with pytest.raises(TypeError):
         merged_fmodel = FlorisModel.merge_floris_models(fmodel_list)
+
+def test_sample_flow_at_points():
+
+    fmodel = FlorisModel(configuration=YAML_INPUT)
+    u_inf = 8.0
+    n_points = 10
+    fmodel.set(
+        layout_x=[0],
+        layout_y=[0],
+        wind_speeds=[u_inf, u_inf],
+        wind_directions=[270.0, 180.0],
+        turbulence_intensities=[0.06, 0.06],
+    )
+
+    # set up sample points
+    p = np.linspace(1, 1001, n_points)
+    x = np.concatenate((p, np.zeros_like(p)))
+    y = np.concatenate((np.zeros_like(p), p))
+    z = 100 * np.ones(n_points * 2)
+
+    # Use sample_flow_at_points to get the flow at the sample points
+    u_sampled_1 = fmodel.sample_flow_at_points(x, y, z)
+
+    # Check that the behind-turbine velocities match in the two directions
+    assert np.allclose(u_sampled_1[0,:n_points], u_sampled_1[1,n_points:])
+    # Check also that points outside the wake are all reasonable
+    assert np.allclose(u_sampled_1[0,n_points:], u_sampled_1[1,:n_points])
+    assert np.all(u_sampled_1[0,n_points:] > u_inf)
+    assert np.all(u_sampled_1[0,n_points:] == u_sampled_1[0,n_points])
+
+    # Run again at a higher speed and check all sampled velocities are higher
+    fmodel.set(wind_speeds=[u_inf + 2.0, u_inf + 2.0])
+    u_sampled_2 = fmodel.sample_flow_at_points(x, y, z)
+    assert np.all(u_sampled_2 > u_sampled_1)
+
+def test_sample_ti_at_points():
+
+    fmodel = FlorisModel(configuration=YAML_INPUT)
+    ti_inf = 0.8
+    n_points = 10
+    fmodel.set(
+        layout_x=[0],
+        layout_y=[0],
+        wind_speeds=[8.0, 8.0],
+        wind_directions=[270.0, 180.0],
+        turbulence_intensities=[ti_inf, ti_inf],
+    )
+
+    # set up sample points
+    p = np.linspace(1, 1001, n_points)
+    x = np.concatenate((p, np.zeros_like(p)))
+    y = np.concatenate((np.zeros_like(p), p))
+    z = 100 * np.ones(n_points * 2)
+
+    # Use sample_ti_at_points to get the TI at the sample points
+    ti_sampled_1 = fmodel.sample_ti_at_points(x, y, z)
+
+    # Check that the behind-turbine TIs match in the two directions
+    assert np.allclose(ti_sampled_1[0,:n_points], ti_sampled_1[1,n_points:])
+    # Check also that points outside the wake are all reasonable
+    assert np.allclose(ti_sampled_1[0,n_points:], ti_sampled_1[1,:n_points])
+    assert np.all(ti_sampled_1[0,n_points:] == ti_inf)
+
+    # Run again at a higher TI and check all sampled TIs are higher
+    fmodel.set(turbulence_intensities=[ti_inf + 0.02, ti_inf + 0.02])
+    ti_sampled_2 = fmodel.sample_ti_at_points(x, y, z)
+    assert np.all(ti_sampled_2 > ti_sampled_1)

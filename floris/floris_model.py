@@ -1383,6 +1383,25 @@ class FlorisModel(LoggingManager):
 
         return self.core.solve_for_points(x, y, z)
 
+    def sample_ti_at_points(self, x: NDArrayFloat, y: NDArrayFloat, z: NDArrayFloat):
+        """
+        Extract the turbulence intensity at points in the flow.
+
+        Args:
+            x (1DArrayFloat | list): x-locations of points where TI is desired.
+            y (1DArrayFloat | list): y-locations of points where TI is desired.
+            z (1DArrayFloat | list): z-locations of points where TI is desired.
+
+        Returns:
+            3DArrayFloat containing turbulence intensity with dimensions
+            (# of findex, # of sample points)
+        """
+
+        self.sample_flow_at_points(x, y, z) # Solve, but ignore returned velocities
+
+        # Remove grid dimensions and return sorted TI field
+        return self.core.flow_field.turbulence_intensity_field_sorted[:, :, 0, 0]
+
     def sample_velocity_deficit_profiles(
         self,
         direction: str = "cross-stream",

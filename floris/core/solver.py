@@ -311,6 +311,12 @@ def full_flow_sequential_solver(
     v_wake = np.zeros_like(flow_field.v_initial_sorted)
     w_wake = np.zeros_like(flow_field.w_initial_sorted)
 
+    # Initialize the turbulence intensity field over the entire flow field grid
+    n_points = flow_field_grid.x_sorted.shape[1]
+    ambient_turbulence_intensities = flow_field.turbulence_intensities[:, None, None, None]
+    ambient_turbulence_intensities = np.repeat(ambient_turbulence_intensities, n_points, axis=1)
+    turbulence_intensity_field = ambient_turbulence_intensities.copy()
+
     # Calculate the velocity deficit sequentially from upstream to downstream turbines
     for i in range(flow_field_grid.n_turbines):
 
@@ -441,9 +447,36 @@ def full_flow_sequential_solver(
             velocity_deficit * flow_field.u_initial_sorted
         )
 
+        wake_added_ti = model_manager.turbulence_model.function(
+            ambient_turbulence_intensities,
+            flow_field_grid.x_sorted,
+            x_i,
+            rotor_diameter_i,
+            axial_induction_i,
+        )
+
+        # Calculate locations where wake-added turbulence (WAT) applies
+        area_overlap = np.where(velocity_deficit * flow_field.u_initial_sorted > 0.05, 1, 0)
+
+        # Modify wake added turbulence by wake area overlap
+        downstream_influence_length = 15 * rotor_diameter_i
+        ti_added = (
+            area_overlap
+            * np.nan_to_num(wake_added_ti, posinf=0.0)
+            * (flow_field_grid.x_sorted > x_i)
+            * (np.abs(y_i - flow_field_grid.y_sorted) < 2 * rotor_diameter_i)
+            * (flow_field_grid.x_sorted <= downstream_influence_length + x_i)
+        )
+        # Combine turbine TIs with WAT
+        turbulence_intensity_field = np.maximum(
+            np.sqrt(ti_added**2 + ambient_turbulence_intensities**2), turbulence_intensity_field
+        )
+
         flow_field.u_sorted = flow_field.u_initial_sorted - wake_field
         flow_field.v_sorted += v_wake
         flow_field.w_sorted += w_wake
+
+    flow_field.turbulence_intensity_field_sorted = turbulence_intensity_field
 
 
 def cc_solver(
@@ -741,6 +774,12 @@ def full_flow_cc_solver(
     w_wake = np.zeros_like(flow_field.w_initial_sorted)
     turb_u_wake = np.zeros_like(flow_field.u_initial_sorted)
 
+    # Initialize the turbulence intensity field over the entire flow field grid
+    n_points = flow_field_grid.x_sorted.shape[1]
+    ambient_turbulence_intensities = flow_field.turbulence_intensities[:, None, None, None]
+    ambient_turbulence_intensities = np.repeat(ambient_turbulence_intensities, n_points, axis=1)
+    turbulence_intensity_field = ambient_turbulence_intensities.copy()
+
     shape = (farm.n_turbines,) + np.shape(flow_field.u_initial_sorted)
     Ctmp = np.zeros((shape))
 
@@ -871,9 +910,37 @@ def full_flow_cc_solver(
             **deficit_model_args,
         )
 
+        wake_added_turbulence_intensity = model_manager.turbulence_model.function(
+            ambient_turbulence_intensities,
+            flow_field_grid.x_sorted,
+            x_i,
+            rotor_diameter_i,
+            axial_induction_i
+        )
+
+        # Calculate wake overlap for wake-added turbulence (WAT)
+        area_overlap = np.where(turb_u_wake > 0.05, 1, 0)
+
+        # Modify wake added turbulence by wake area overlap
+        downstream_influence_length = 15 * rotor_diameter_i
+        ti_added = (
+            area_overlap
+            * np.nan_to_num(wake_added_turbulence_intensity, posinf=0.0)
+            * (flow_field_grid.x_sorted > x_i)
+            * (np.abs(y_i - flow_field_grid.y_sorted) < 2 * rotor_diameter_i)
+            * (flow_field_grid.x_sorted <= downstream_influence_length + x_i)
+        )
+
+        # Combine turbine TIs with WAT
+        turbulence_intensity_field = np.maximum(
+            np.sqrt(ti_added**2 + ambient_turbulence_intensities**2), turbulence_intensity_field
+        )
+
         flow_field.v_sorted += v_wake
         flow_field.w_sorted += w_wake
+
     flow_field.u_sorted = flow_field.u_initial_sorted - turb_u_wake
+    flow_field.turbulence_intensity_field_sorted = turbulence_intensity_field
 
 
 def turbopark_solver(
@@ -1383,6 +1450,12 @@ def full_flow_empirical_gauss_solver(
         model_manager
     )
 
+    # Create placeholder for TI, which is not currently used in the EmG model
+    n_points = flow_field_grid.x_sorted.shape[1]
+    ambient_turbulence_intensities = flow_field.turbulence_intensities[:, None, None, None]
+    ambient_turbulence_intensities = np.repeat(ambient_turbulence_intensities, n_points, axis=1)
+    turbulence_intensity_field = ambient_turbulence_intensities.copy()
+
     ### Referring to the quantities from above, calculate the wake in the full grid
 
     # Use full flow_field here to use the full grid in the wake models
@@ -1508,3 +1581,4 @@ def full_flow_empirical_gauss_solver(
         flow_field.u_sorted = flow_field.u_initial_sorted - wake_field
         flow_field.v_sorted += v_wake
         flow_field.w_sorted += w_wake
+        flow_field.turbulence_intensity_field_sorted = turbulence_intensity_field
