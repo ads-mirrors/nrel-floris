@@ -376,7 +376,8 @@ window.addEventListener("load", () => mermaid.run());
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="examples/examples_get_flow/001_extract_wind_speed_at_turbines.html">Example: Extract wind speed at turbines</a></li>
 <li class="toctree-l1"><a class="reference internal" href="examples/examples_get_flow/002_extract_wind_speed_at_points.html">Example: Extract wind speed at points</a></li>
-<li class="toctree-l1"><a class="reference internal" href="examples/examples_get_flow/003_plot_velocity_deficit_profiles.html">Example: Plot velocity deficit profiles</a></li>
+<li class="toctree-l1"><a class="reference internal" href="examples/examples_get_flow/003_extract_turbulence_intensity_at_points.html">Example: Extract turbulence intensity at points</a></li>
+<li class="toctree-l1"><a class="reference internal" href="examples/examples_get_flow/004_plot_velocity_deficit_profiles.html">Example: Plot velocity deficit profiles</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Examples - Heterogeneous</span></p>
 <ul class="nav bd-sidenav">
@@ -2574,6 +2575,8 @@ document.write(`
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="_autosummary/floris.floris_model.html#floris.floris_model.FlorisModel.sample_flow_at_points">sample_flow_at_points() (floris.floris_model.FlorisModel method)</a>
 </li>
+      <li><a href="_autosummary/floris.floris_model.html#floris.floris_model.FlorisModel.sample_ti_at_points">sample_ti_at_points() (floris.floris_model.FlorisModel method)</a>
+</li>
       <li><a href="_autosummary/floris.floris_model.html#floris.floris_model.FlorisModel.sample_velocity_deficit_profiles">sample_velocity_deficit_profiles() (floris.floris_model.FlorisModel method)</a>
 </li>
       <li><a href="_autosummary/floris.floris_model.html#floris.floris_model.FlorisModel.secondary_init_kwargs">secondary_init_kwargs (floris.floris_model.FlorisModel property)</a>
@@ -2652,10 +2655,10 @@ document.write(`
       </ul></li>
       <li><a href="_autosummary/floris.core.farm.html#floris.core.farm.Farm.set_power_setpoints">set_power_setpoints() (floris.core.farm.Farm method)</a>
 </li>
-      <li><a href="_autosummary/floris.core.farm.html#floris.core.farm.Farm.set_power_setpoints_to_ref_power">set_power_setpoints_to_ref_power() (floris.core.farm.Farm method)</a>
-</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="_autosummary/floris.core.farm.html#floris.core.farm.Farm.set_power_setpoints_to_ref_power">set_power_setpoints_to_ref_power() (floris.core.farm.Farm method)</a>
+</li>
       <li><a href="_autosummary/floris.wind_data.html#floris.wind_data.WindRoseWRG.set_ti_table">set_ti_table() (floris.wind_data.WindRoseWRG method)</a>
 </li>
       <li><a href="_autosummary/floris.core.farm.html#floris.core.farm.Farm.set_tilt_to_ref_tilt">set_tilt_to_ref_tilt() (floris.core.farm.Farm method)</a>

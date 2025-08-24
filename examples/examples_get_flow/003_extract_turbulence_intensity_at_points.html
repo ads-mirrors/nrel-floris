@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Example: Plot velocity deficit profiles &#8212; FLORIS</title>
+    <title>Example: Extract turbulence intensity at points &#8212; FLORIS</title>
   
   
   
@@ -70,10 +70,10 @@
                 gtag('config', 'G-JV2SK7CNPR');
             </script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'examples/examples_get_flow/003_plot_velocity_deficit_profiles';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'examples/examples_get_flow/003_extract_turbulence_intensity_at_points';</script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="Example: Heterogeneous Inflow for single case" href="../examples_heterogeneous/001_heterogeneous_inflow_single.html" />
+    <link rel="next" title="Example: Plot velocity deficit profiles" href="004_plot_velocity_deficit_profiles.html" />
     <link rel="prev" title="Example: Extract wind speed at points" href="002_extract_wind_speed_at_points.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="python"/>
@@ -369,7 +369,8 @@
 <ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="001_extract_wind_speed_at_turbines.html">Example: Extract wind speed at turbines</a></li>
 <li class="toctree-l1"><a class="reference internal" href="002_extract_wind_speed_at_points.html">Example: Extract wind speed at points</a></li>
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">Example: Plot velocity deficit profiles</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Example: Extract turbulence intensity at points</a></li>
+<li class="toctree-l1"><a class="reference internal" href="004_plot_velocity_deficit_profiles.html">Example: Plot velocity deficit profiles</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Examples - Heterogeneous</span></p>
 <ul class="nav bd-sidenav">
@@ -507,7 +508,7 @@
       
       
       
-      <li><a href="https://github.com/NREL/floris/edit/main/docs/examples/examples_get_flow/003_plot_velocity_deficit_profiles.ipynb" target="_blank"
+      <li><a href="https://github.com/NREL/floris/edit/main/docs/examples/examples_get_flow/003_extract_turbulence_intensity_at_points.ipynb" target="_blank"
    class="btn btn-sm btn-source-edit-button dropdown-item"
    title="Suggest edit"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -524,7 +525,7 @@
       
       
       
-      <li><a href="https://github.com/NREL/floris/issues/new?title=Issue%20on%20page%20%2Fexamples/examples_get_flow/003_plot_velocity_deficit_profiles.html&body=Your%20issue%20content%20here." target="_blank"
+      <li><a href="https://github.com/NREL/floris/issues/new?title=Issue%20on%20page%20%2Fexamples/examples_get_flow/003_extract_turbulence_intensity_at_points.html&body=Your%20issue%20content%20here." target="_blank"
    class="btn btn-sm btn-source-issues-button dropdown-item"
    title="Open an issue"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -554,7 +555,7 @@
       
       
       
-      <li><a href="../../_sources/examples/examples_get_flow/003_plot_velocity_deficit_profiles.ipynb" target="_blank"
+      <li><a href="../../_sources/examples/examples_get_flow/003_extract_turbulence_intensity_at_points.ipynb" target="_blank"
    class="btn btn-sm btn-download-source-button dropdown-item"
    title="Download source file"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -636,7 +637,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Example: Plot velocity deficit profiles</h1>
+    <h1>Example: Extract turbulence intensity at points</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -650,215 +651,97 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="example-plot-velocity-deficit-profiles">
-<h1>Example: Plot velocity deficit profiles<a class="headerlink" href="#example-plot-velocity-deficit-profiles" title="Link to this heading">#</a></h1>
+  <section class="tex2jax_ignore mathjax_ignore" id="example-extract-turbulence-intensity-at-points">
+<h1>Example: Extract turbulence intensity at points<a class="headerlink" href="#example-extract-turbulence-intensity-at-points" title="Link to this heading">#</a></h1>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="sd">&quot;&quot;&quot;Example: Plot velocity deficit profiles</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="sd">&quot;&quot;&quot;Example: Extract turbulence intensity at points</span>
+<span class="sd">This example demonstrates the use of the sample_ti_at_points method of</span>
+<span class="sd">FlorisModel. sample_ti_at_points extracts the turbulence intensity (TI)</span>
+<span class="sd">information at user-specified locations in the flow.</span>
 
-<span class="sd">This example illustrates how to plot velocity deficit profiles at several locations</span>
-<span class="sd">downstream of a turbine. Here we use the following definition:</span>
-<span class="sd">    velocity_deficit = (homogeneous_wind_speed - u) / homogeneous_wind_speed</span>
-<span class="sd">        , where u is the wake velocity obtained when the incoming wind speed is the</span>
-<span class="sd">        same at all heights and equal to `homogeneous_wind_speed`.</span>
+<span class="sd">Specifically, this example returns the TI at a single x, y</span>
+<span class="sd">location and four different heights over a sweep of wind directions.</span>
+<span class="sd">This mimics the TI measurements of a met mast across all</span>
+<span class="sd">wind directions (at a fixed free stream wind speed).</span>
+
+<span class="sd">Try different values for met_mast_option to vary the location of the</span>
+<span class="sd">met mast within the two-turbine farm.</span>
 <span class="sd">&quot;&quot;&quot;</span>
 
 
 <span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">matplotlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">ticker</span>
 
-<span class="kn">import</span><span class="w"> </span><span class="nn">floris.flow_visualization</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">flowviz</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">floris</span><span class="w"> </span><span class="kn">import</span> <span class="n">FlorisModel</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">floris.flow_visualization</span><span class="w"> </span><span class="kn">import</span> <span class="n">VelocityProfilesFigure</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">floris.utilities</span><span class="w"> </span><span class="kn">import</span> <span class="n">reverse_rotate_coordinates_rel_west</span>
 
 
-<span class="c1"># The first two functions are just used to plot the coordinate system in which the</span>
-<span class="c1"># profiles are sampled. Please go to the main function to begin the example.</span>
-<span class="k">def</span><span class="w"> </span><span class="nf">plot_coordinate_system</span><span class="p">(</span><span class="n">x_origin</span><span class="p">,</span> <span class="n">y_origin</span><span class="p">,</span> <span class="n">wind_direction</span><span class="p">):</span>
-    <span class="n">quiver_length</span> <span class="o">=</span> <span class="mf">1.4</span> <span class="o">*</span> <span class="n">D</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">quiver</span><span class="p">(</span>
-        <span class="p">[</span><span class="n">x_origin</span><span class="p">,</span> <span class="n">x_origin</span><span class="p">],</span>
-        <span class="p">[</span><span class="n">y_origin</span><span class="p">,</span> <span class="n">y_origin</span><span class="p">],</span>
-        <span class="p">[</span><span class="n">quiver_length</span><span class="p">,</span> <span class="n">quiver_length</span><span class="p">],</span>
-        <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
-        <span class="n">angles</span><span class="o">=</span><span class="p">[</span><span class="mi">270</span> <span class="o">-</span> <span class="n">wind_direction</span><span class="p">,</span> <span class="mi">360</span> <span class="o">-</span> <span class="n">wind_direction</span><span class="p">],</span>
-        <span class="n">scale_units</span><span class="o">=</span><span class="s2">&quot;x&quot;</span><span class="p">,</span>
-        <span class="n">scale</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
-    <span class="p">)</span>
-    <span class="n">annotate_coordinate_system</span><span class="p">(</span><span class="n">x_origin</span><span class="p">,</span> <span class="n">y_origin</span><span class="p">,</span> <span class="n">quiver_length</span><span class="p">)</span>
+<span class="c1"># User options</span>
+<span class="c1"># FLORIS model to use. Note that legacy &quot;turbopark&quot; is not available,</span>
+<span class="c1"># &quot;turboparkgauss&quot; is configured with none turbulence model by default,</span>
+<span class="c1"># and &quot;emgauss&quot; does not contain an explicit turbulence model.</span>
+<span class="n">floris_model</span> <span class="o">=</span> <span class="s2">&quot;gch&quot;</span>  <span class="c1"># Try &quot;gch&quot;, &quot;cc&quot;, &quot;jensen&quot;</span>
+<span class="c1"># Option to try different met mast locations</span>
+<span class="n">met_mast_option</span> <span class="o">=</span> <span class="mi">0</span>  <span class="c1"># Try 0, 1, 2, 3</span>
 
+<span class="c1"># Instantiate FLORIS model</span>
+<span class="n">fmodel</span> <span class="o">=</span> <span class="n">FlorisModel</span><span class="p">(</span><span class="s2">&quot;../inputs/&quot;</span> <span class="o">+</span> <span class="n">floris_model</span> <span class="o">+</span> <span class="s2">&quot;.yaml&quot;</span><span class="p">)</span>
 
-<span class="k">def</span><span class="w"> </span><span class="nf">annotate_coordinate_system</span><span class="p">(</span><span class="n">x_origin</span><span class="p">,</span> <span class="n">y_origin</span><span class="p">,</span> <span class="n">quiver_length</span><span class="p">):</span>
-    <span class="n">x1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">quiver_length</span> <span class="o">+</span> <span class="mf">0.35</span> <span class="o">*</span> <span class="n">D</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">])</span>
-    <span class="n">x2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">quiver_length</span> <span class="o">+</span> <span class="mf">0.35</span> <span class="o">*</span> <span class="n">D</span><span class="p">])</span>
-    <span class="n">x3</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">90.0</span><span class="p">,</span> <span class="mf">90.0</span><span class="p">])</span>
-    <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">reverse_rotate_coordinates_rel_west</span><span class="p">(</span>
-        <span class="n">fmodel</span><span class="o">.</span><span class="n">wind_directions</span><span class="p">,</span>
-        <span class="n">x1</span><span class="p">[</span><span class="kc">None</span><span class="p">,</span> <span class="p">:],</span>
-        <span class="n">x2</span><span class="p">[</span><span class="kc">None</span><span class="p">,</span> <span class="p">:],</span>
-        <span class="n">x3</span><span class="p">[</span><span class="kc">None</span><span class="p">,</span> <span class="p">:],</span>
-        <span class="n">x_center_of_rotation</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span>
-        <span class="n">y_center_of_rotation</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span>
-    <span class="p">)</span>
-    <span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">squeeze</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span> <span class="o">+</span> <span class="n">x_origin</span>
-    <span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">squeeze</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span> <span class="o">+</span> <span class="n">y_origin</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">y</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="s2">&quot;$x_1$&quot;</span><span class="p">,</span> <span class="n">bbox</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;facecolor&quot;</span><span class="p">:</span> <span class="s2">&quot;white&quot;</span><span class="p">})</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">y</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="s2">&quot;$x_2$&quot;</span><span class="p">,</span> <span class="n">bbox</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;facecolor&quot;</span><span class="p">:</span> <span class="s2">&quot;white&quot;</span><span class="p">})</span>
+<span class="c1"># Set up a two-turbine farm</span>
+<span class="n">D</span> <span class="o">=</span> <span class="mi">126</span>
+<span class="n">fmodel</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">layout_x</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3</span> <span class="o">*</span> <span class="n">D</span><span class="p">],</span> <span class="n">layout_y</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3</span> <span class="o">*</span> <span class="n">D</span><span class="p">])</span>
 
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">set_size_inches</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">fmodel</span><span class="o">.</span><span class="n">layout_x</span><span class="p">,</span> <span class="n">fmodel</span><span class="o">.</span><span class="n">layout_y</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;black&quot;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Turbine&quot;</span><span class="p">)</span>
 
-<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
-    <span class="n">D</span> <span class="o">=</span> <span class="mf">125.88</span>  <span class="c1"># Turbine diameter</span>
-    <span class="n">hub_height</span> <span class="o">=</span> <span class="mf">90.0</span>
-    <span class="n">homogeneous_wind_speed</span> <span class="o">=</span> <span class="mf">8.0</span>
+<span class="c1"># Set the wind direction to run 360 degrees</span>
+<span class="n">wd_array</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">360</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">ws_array</span> <span class="o">=</span> <span class="mf">8.0</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">ones_like</span><span class="p">(</span><span class="n">wd_array</span><span class="p">)</span>
+<span class="n">ti_array</span> <span class="o">=</span> <span class="mf">0.06</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">ones_like</span><span class="p">(</span><span class="n">wd_array</span><span class="p">)</span>
+<span class="n">fmodel</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">wind_directions</span><span class="o">=</span><span class="n">wd_array</span><span class="p">,</span> <span class="n">wind_speeds</span><span class="o">=</span><span class="n">ws_array</span><span class="p">,</span> <span class="n">turbulence_intensities</span><span class="o">=</span><span class="n">ti_array</span><span class="p">)</span>
 
-    <span class="n">fmodel</span> <span class="o">=</span> <span class="n">FlorisModel</span><span class="p">(</span><span class="s2">&quot;../inputs/gch.yaml&quot;</span><span class="p">)</span>
-    <span class="n">fmodel</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">layout_x</span><span class="o">=</span><span class="p">[</span><span class="mf">0.0</span><span class="p">],</span> <span class="n">layout_y</span><span class="o">=</span><span class="p">[</span><span class="mf">0.0</span><span class="p">])</span>
+<span class="c1"># Simulate a met mast in between the turbines</span>
+<span class="k">if</span> <span class="n">met_mast_option</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+    <span class="n">points_x</span> <span class="o">=</span> <span class="mi">4</span> <span class="o">*</span> <span class="p">[</span><span class="mi">3</span> <span class="o">*</span> <span class="n">D</span><span class="p">]</span>
+    <span class="n">points_y</span> <span class="o">=</span> <span class="mi">4</span> <span class="o">*</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="k">elif</span> <span class="n">met_mast_option</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+    <span class="n">points_x</span> <span class="o">=</span> <span class="mi">4</span> <span class="o">*</span> <span class="p">[</span><span class="mf">200.0</span><span class="p">]</span>
+    <span class="n">points_y</span> <span class="o">=</span> <span class="mi">4</span> <span class="o">*</span> <span class="p">[</span><span class="mf">200.0</span><span class="p">]</span>
+<span class="k">elif</span> <span class="n">met_mast_option</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+    <span class="n">points_x</span> <span class="o">=</span> <span class="mi">4</span> <span class="o">*</span> <span class="p">[</span><span class="mf">20.0</span><span class="p">]</span>
+    <span class="n">points_y</span> <span class="o">=</span> <span class="mi">4</span> <span class="o">*</span> <span class="p">[</span><span class="mf">20.0</span><span class="p">]</span>
+<span class="k">elif</span> <span class="n">met_mast_option</span> <span class="o">==</span> <span class="mi">3</span><span class="p">:</span>
+    <span class="n">points_x</span> <span class="o">=</span> <span class="mi">4</span> <span class="o">*</span> <span class="p">[</span><span class="mf">305.0</span><span class="p">]</span>
+    <span class="n">points_y</span> <span class="o">=</span> <span class="mi">4</span> <span class="o">*</span> <span class="p">[</span><span class="mf">158.0</span><span class="p">]</span>
 
-    <span class="c1"># ------------------------------ Single-turbine layout ------------------------------</span>
-    <span class="c1"># We first show how to sample and plot velocity deficit profiles on a single-turbine layout.</span>
-    <span class="c1"># Lines are drawn on a horizontal plane to indicate were the velocity is sampled.</span>
-    <span class="n">downstream_dists</span> <span class="o">=</span> <span class="n">D</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">7</span><span class="p">])</span>
-    <span class="c1"># Sample three profiles along three corresponding lines that are all parallel to the y-axis</span>
-    <span class="c1"># (cross-stream direction). The streamwise location of each line is given in `downstream_dists`.</span>
-    <span class="n">profiles</span> <span class="o">=</span> <span class="n">fmodel</span><span class="o">.</span><span class="n">sample_velocity_deficit_profiles</span><span class="p">(</span>
-        <span class="n">direction</span><span class="o">=</span><span class="s2">&quot;cross-stream&quot;</span><span class="p">,</span>
-        <span class="n">downstream_dists</span><span class="o">=</span><span class="n">downstream_dists</span><span class="p">,</span>
-        <span class="n">homogeneous_wind_speed</span><span class="o">=</span><span class="n">homogeneous_wind_speed</span><span class="p">,</span>
-    <span class="p">)</span>
+<span class="n">points_z</span> <span class="o">=</span> <span class="p">[</span><span class="mi">30</span><span class="p">,</span> <span class="mi">90</span><span class="p">,</span> <span class="mi">150</span><span class="p">,</span> <span class="mi">250</span><span class="p">]</span>
 
-    <span class="n">horizontal_plane</span> <span class="o">=</span> <span class="n">fmodel</span><span class="o">.</span><span class="n">calculate_horizontal_plane</span><span class="p">(</span><span class="n">height</span><span class="o">=</span><span class="n">hub_height</span><span class="p">)</span>
-    <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mf">6.4</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
-    <span class="n">flowviz</span><span class="o">.</span><span class="n">visualize_cut_plane</span><span class="p">(</span><span class="n">horizontal_plane</span><span class="p">,</span> <span class="n">ax</span><span class="p">)</span>
-    <span class="n">colors</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;b&quot;</span><span class="p">,</span> <span class="s2">&quot;g&quot;</span><span class="p">,</span> <span class="s2">&quot;c&quot;</span><span class="p">]</span>
-    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">profile</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">profiles</span><span class="p">):</span>
-        <span class="c1"># Plot profile coordinates on the horizontal plane</span>
-        <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">profile</span><span class="p">[</span><span class="s2">&quot;x&quot;</span><span class="p">],</span> <span class="n">profile</span><span class="p">[</span><span class="s2">&quot;y&quot;</span><span class="p">],</span> <span class="n">colors</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;x/D=</span><span class="si">{</span><span class="n">downstream_dists</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">D</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;x [m]&quot;</span><span class="p">)</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;y [m]&quot;</span><span class="p">)</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Streamwise velocity in a horizontal plane: gauss velocity model&quot;</span><span class="p">)</span>
-    <span class="n">fig</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">(</span><span class="n">rect</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mf">0.82</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">bbox_to_anchor</span><span class="o">=</span><span class="p">[</span><span class="mf">1.29</span><span class="p">,</span> <span class="mf">1.04</span><span class="p">])</span>
+<span class="c1"># Collect the points</span>
+<span class="n">ti_at_points</span> <span class="o">=</span> <span class="n">fmodel</span><span class="o">.</span><span class="n">sample_ti_at_points</span><span class="p">(</span><span class="n">points_x</span><span class="p">,</span> <span class="n">points_y</span><span class="p">,</span> <span class="n">points_z</span><span class="p">)</span>
 
-    <span class="c1"># Initialize a VelocityProfilesFigure. The workflow is similar to a matplotlib Figure:</span>
-    <span class="c1"># Initialize it, plot data, and then customize it further if needed.</span>
-    <span class="n">profiles_fig</span> <span class="o">=</span> <span class="n">VelocityProfilesFigure</span><span class="p">(</span>
-        <span class="n">downstream_dists_D</span><span class="o">=</span><span class="n">downstream_dists</span> <span class="o">/</span> <span class="n">D</span><span class="p">,</span>
-        <span class="n">layout</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;cross-stream&quot;</span><span class="p">],</span>
-        <span class="n">coordinate_labels</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;x/D&quot;</span><span class="p">,</span> <span class="s2">&quot;y/D&quot;</span><span class="p">],</span>
-    <span class="p">)</span>
-    <span class="c1"># Add profiles to the VelocityProfilesFigure. This method automatically matches the supplied</span>
-    <span class="c1"># profiles to the initialized axes in the figure.</span>
-    <span class="n">profiles_fig</span><span class="o">.</span><span class="n">add_profiles</span><span class="p">(</span><span class="n">profiles</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;k&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">points_x</span><span class="p">,</span> <span class="n">points_y</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;red&quot;</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s2">&quot;x&quot;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Met mast&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">grid</span><span class="p">()</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;x [m]&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;y [m]&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
 
-    <span class="c1"># Change velocity model to jensen, get the velocity deficit profiles,</span>
-    <span class="c1"># and add them to the figure.</span>
-    <span class="n">floris_dict</span> <span class="o">=</span> <span class="n">fmodel</span><span class="o">.</span><span class="n">core</span><span class="o">.</span><span class="n">as_dict</span><span class="p">()</span>
-    <span class="n">floris_dict</span><span class="p">[</span><span class="s2">&quot;wake&quot;</span><span class="p">][</span><span class="s2">&quot;model_strings&quot;</span><span class="p">][</span><span class="s2">&quot;velocity_model&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;jensen&quot;</span>
-    <span class="n">fmodel</span> <span class="o">=</span> <span class="n">FlorisModel</span><span class="p">(</span><span class="n">floris_dict</span><span class="p">)</span>
-    <span class="n">profiles</span> <span class="o">=</span> <span class="n">fmodel</span><span class="o">.</span><span class="n">sample_velocity_deficit_profiles</span><span class="p">(</span>
-        <span class="n">direction</span><span class="o">=</span><span class="s2">&quot;cross-stream&quot;</span><span class="p">,</span>
-        <span class="n">downstream_dists</span><span class="o">=</span><span class="n">downstream_dists</span><span class="p">,</span>
-        <span class="n">homogeneous_wind_speed</span><span class="o">=</span><span class="n">homogeneous_wind_speed</span><span class="p">,</span>
-        <span class="n">resolution</span><span class="o">=</span><span class="mi">400</span><span class="p">,</span>
-    <span class="p">)</span>
-    <span class="n">profiles_fig</span><span class="o">.</span><span class="n">add_profiles</span><span class="p">(</span><span class="n">profiles</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;r&quot;</span><span class="p">)</span>
+<span class="c1"># Plot the turbulence intensities</span>
+<span class="k">for</span> <span class="n">z_idx</span><span class="p">,</span> <span class="n">z</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">points_z</span><span class="p">):</span>
+    <span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">wd_array</span><span class="p">,</span> <span class="n">ti_at_points</span><span class="p">[:,</span> <span class="n">z_idx</span><span class="p">]</span><span class="o">.</span><span class="n">flatten</span><span class="p">(),</span> <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;TI at z=</span><span class="si">{</span><span class="n">z</span><span class="si">}</span><span class="s2"> m&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">grid</span><span class="p">()</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;Wind Direction (deg)&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;Turbulence Intensity (-)&quot;</span><span class="p">)</span>
 
-    <span class="c1"># The dashed reference lines show the extent of the rotor</span>
-    <span class="n">profiles_fig</span><span class="o">.</span><span class="n">add_ref_lines_x2</span><span class="p">([</span><span class="o">-</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">])</span>
-    <span class="k">for</span> <span class="n">ax</span> <span class="ow">in</span> <span class="n">profiles_fig</span><span class="o">.</span><span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span>
-        <span class="n">ax</span><span class="o">.</span><span class="n">xaxis</span><span class="o">.</span><span class="n">set_major_locator</span><span class="p">(</span><span class="n">ticker</span><span class="o">.</span><span class="n">MultipleLocator</span><span class="p">(</span><span class="mf">0.2</span><span class="p">))</span>
-
-    <span class="n">profiles_fig</span><span class="o">.</span><span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">legend</span><span class="p">([</span><span class="s2">&quot;gauss&quot;</span><span class="p">,</span> <span class="s2">&quot;jensen&quot;</span><span class="p">],</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">11</span><span class="p">)</span>
-    <span class="n">profiles_fig</span><span class="o">.</span><span class="n">fig</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span>
-        <span class="s2">&quot;Velocity deficit profiles from different velocity models&quot;</span><span class="p">,</span>
-        <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">,</span>
-    <span class="p">)</span>
-
-    <span class="c1"># -------------------------------- Two-turbine layout --------------------------------</span>
-    <span class="c1"># This is a two-turbine case where the wind direction is north-west. Velocity profiles</span>
-    <span class="c1"># are sampled behind the second turbine. This illustrates the need for a</span>
-    <span class="c1"># sampling-coordinate-system (x1, x2, x3) that is rotated such that x1 is always in the</span>
-    <span class="c1"># streamwise direction. The user may define the origin of this coordinate system</span>
-    <span class="c1"># (i.e. where to start sampling the profiles).</span>
-    <span class="n">wind_direction</span> <span class="o">=</span> <span class="mf">315.0</span>  <span class="c1"># Try to change this</span>
-    <span class="n">downstream_dists</span> <span class="o">=</span> <span class="n">D</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">])</span>
-    <span class="n">floris_dict</span> <span class="o">=</span> <span class="n">fmodel</span><span class="o">.</span><span class="n">core</span><span class="o">.</span><span class="n">as_dict</span><span class="p">()</span>
-    <span class="n">floris_dict</span><span class="p">[</span><span class="s2">&quot;wake&quot;</span><span class="p">][</span><span class="s2">&quot;model_strings&quot;</span><span class="p">][</span><span class="s2">&quot;velocity_model&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;gauss&quot;</span>
-    <span class="n">fmodel</span> <span class="o">=</span> <span class="n">FlorisModel</span><span class="p">(</span><span class="n">floris_dict</span><span class="p">)</span>
-    <span class="c1"># Let (x_t1, y_t1) be the location of the second turbine</span>
-    <span class="n">x_t1</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">D</span>
-    <span class="n">y_t1</span> <span class="o">=</span> <span class="o">-</span><span class="mi">2</span> <span class="o">*</span> <span class="n">D</span>
-    <span class="n">fmodel</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">wind_directions</span><span class="o">=</span><span class="p">[</span><span class="n">wind_direction</span><span class="p">],</span> <span class="n">layout_x</span><span class="o">=</span><span class="p">[</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">x_t1</span><span class="p">],</span> <span class="n">layout_y</span><span class="o">=</span><span class="p">[</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">y_t1</span><span class="p">])</span>
-
-    <span class="c1"># Extract profiles at a set of downstream distances from the starting point (x_start, y_start)</span>
-    <span class="n">cross_profiles</span> <span class="o">=</span> <span class="n">fmodel</span><span class="o">.</span><span class="n">sample_velocity_deficit_profiles</span><span class="p">(</span>
-        <span class="n">direction</span><span class="o">=</span><span class="s2">&quot;cross-stream&quot;</span><span class="p">,</span>
-        <span class="n">downstream_dists</span><span class="o">=</span><span class="n">downstream_dists</span><span class="p">,</span>
-        <span class="n">homogeneous_wind_speed</span><span class="o">=</span><span class="n">homogeneous_wind_speed</span><span class="p">,</span>
-        <span class="n">x_start</span><span class="o">=</span><span class="n">x_t1</span><span class="p">,</span>
-        <span class="n">y_start</span><span class="o">=</span><span class="n">y_t1</span><span class="p">,</span>
-    <span class="p">)</span>
-
-    <span class="n">horizontal_plane</span> <span class="o">=</span> <span class="n">fmodel</span><span class="o">.</span><span class="n">calculate_horizontal_plane</span><span class="p">(</span>
-        <span class="n">height</span><span class="o">=</span><span class="n">hub_height</span><span class="p">,</span> <span class="n">x_bounds</span><span class="o">=</span><span class="p">[</span><span class="o">-</span><span class="mi">2</span> <span class="o">*</span> <span class="n">D</span><span class="p">,</span> <span class="mi">9</span> <span class="o">*</span> <span class="n">D</span><span class="p">]</span>
-    <span class="p">)</span>
-    <span class="n">ax</span> <span class="o">=</span> <span class="n">flowviz</span><span class="o">.</span><span class="n">visualize_cut_plane</span><span class="p">(</span><span class="n">horizontal_plane</span><span class="p">)</span>
-    <span class="n">colors</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;b&quot;</span><span class="p">,</span> <span class="s2">&quot;g&quot;</span><span class="p">,</span> <span class="s2">&quot;c&quot;</span><span class="p">]</span>
-    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">profile</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">cross_profiles</span><span class="p">):</span>
-        <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
-            <span class="n">profile</span><span class="p">[</span><span class="s2">&quot;x&quot;</span><span class="p">],</span>
-            <span class="n">profile</span><span class="p">[</span><span class="s2">&quot;y&quot;</span><span class="p">],</span>
-            <span class="n">colors</span><span class="p">[</span><span class="n">i</span><span class="p">],</span>
-            <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;$x_1/D=</span><span class="si">{</span><span class="n">downstream_dists</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">D</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2">$&quot;</span><span class="p">,</span>
-        <span class="p">)</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;x [m]&quot;</span><span class="p">)</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;y [m]&quot;</span><span class="p">)</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Streamwise velocity in a horizontal plane&quot;</span><span class="p">)</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
-    <span class="n">plot_coordinate_system</span><span class="p">(</span><span class="n">x_origin</span><span class="o">=</span><span class="n">x_t1</span><span class="p">,</span> <span class="n">y_origin</span><span class="o">=</span><span class="n">y_t1</span><span class="p">,</span> <span class="n">wind_direction</span><span class="o">=</span><span class="n">wind_direction</span><span class="p">)</span>
-
-    <span class="c1"># Sample velocity deficit profiles in the vertical direction at the same downstream</span>
-    <span class="c1"># locations as before. We stay directly downstream of the turbine (i.e. x2 = 0). These</span>
-    <span class="c1"># profiles are almost identical to the cross-stream profiles. However, we now explicitly</span>
-    <span class="c1"># set the profile range. The default range is [-2 * D, 2 * D].</span>
-    <span class="n">vertical_profiles</span> <span class="o">=</span> <span class="n">fmodel</span><span class="o">.</span><span class="n">sample_velocity_deficit_profiles</span><span class="p">(</span>
-        <span class="n">direction</span><span class="o">=</span><span class="s2">&quot;vertical&quot;</span><span class="p">,</span>
-        <span class="n">profile_range</span><span class="o">=</span><span class="p">[</span><span class="o">-</span><span class="mf">1.5</span> <span class="o">*</span> <span class="n">D</span><span class="p">,</span> <span class="mf">1.5</span> <span class="o">*</span> <span class="n">D</span><span class="p">],</span>
-        <span class="n">downstream_dists</span><span class="o">=</span><span class="n">downstream_dists</span><span class="p">,</span>
-        <span class="n">homogeneous_wind_speed</span><span class="o">=</span><span class="n">homogeneous_wind_speed</span><span class="p">,</span>
-        <span class="n">x_start</span><span class="o">=</span><span class="n">x_t1</span><span class="p">,</span>
-        <span class="n">y_start</span><span class="o">=</span><span class="n">y_t1</span><span class="p">,</span>
-    <span class="p">)</span>
-
-    <span class="n">profiles_fig</span> <span class="o">=</span> <span class="n">VelocityProfilesFigure</span><span class="p">(</span>
-        <span class="n">downstream_dists_D</span><span class="o">=</span><span class="n">downstream_dists</span> <span class="o">/</span> <span class="n">D</span><span class="p">,</span>
-        <span class="n">layout</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;cross-stream&quot;</span><span class="p">,</span> <span class="s2">&quot;vertical&quot;</span><span class="p">],</span>
-    <span class="p">)</span>
-    <span class="n">profiles_fig</span><span class="o">.</span><span class="n">add_profiles</span><span class="p">(</span><span class="n">cross_profiles</span> <span class="o">+</span> <span class="n">vertical_profiles</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;k&quot;</span><span class="p">)</span>
-
-    <span class="n">profiles_fig</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">([</span><span class="o">-</span><span class="mf">0.05</span><span class="p">,</span> <span class="mf">0.85</span><span class="p">])</span>
-    <span class="n">profiles_fig</span><span class="o">.</span><span class="n">axs</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">([</span><span class="o">-</span><span class="mf">2.2</span><span class="p">,</span> <span class="mf">2.2</span><span class="p">])</span>
-    <span class="k">for</span> <span class="n">ax</span> <span class="ow">in</span> <span class="n">profiles_fig</span><span class="o">.</span><span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span>
-        <span class="n">ax</span><span class="o">.</span><span class="n">xaxis</span><span class="o">.</span><span class="n">set_major_locator</span><span class="p">(</span><span class="n">ticker</span><span class="o">.</span><span class="n">MultipleLocator</span><span class="p">(</span><span class="mf">0.4</span><span class="p">))</span>
-
-    <span class="n">profiles_fig</span><span class="o">.</span><span class="n">fig</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span>
-        <span class="s2">&quot;Cross-stream profiles at hub-height, and</span><span class="se">\n</span><span class="s2">vertical profiles at $x_2 = 0$&quot;</span><span class="p">,</span>
-        <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">,</span>
-    <span class="p">)</span>
-
-    <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">warnings</span>
 <span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s1">&#39;ignore&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../_images/5b5a94948e7d2ef2a9dd4070fdf8fa8a5e804fcd9bab8acc512ef8d3da0c586b.png" src="../../_images/5b5a94948e7d2ef2a9dd4070fdf8fa8a5e804fcd9bab8acc512ef8d3da0c586b.png" />
-<img alt="../../_images/feca05b449275fdab68984de885030710a0d98eef481150307b1ed2e2cd17b8f.png" src="../../_images/feca05b449275fdab68984de885030710a0d98eef481150307b1ed2e2cd17b8f.png" />
-<img alt="../../_images/a21c36323c270a46fddee8ebfaec4b493985780189b82e812bf73a948efcb7e6.png" src="../../_images/a21c36323c270a46fddee8ebfaec4b493985780189b82e812bf73a948efcb7e6.png" />
-<img alt="../../_images/1c2924479a619bea85ac2f99a30b5757a1bfcdba18c88ccf542195d79641fa24.png" src="../../_images/1c2924479a619bea85ac2f99a30b5757a1bfcdba18c88ccf542195d79641fa24.png" />
+<img alt="../../_images/625d3b9d7d6ba7e043e6fd875a1b56cc32d24f4e61e8c4f83a9db8a38b3ed7bf.png" src="../../_images/625d3b9d7d6ba7e043e6fd875a1b56cc32d24f4e61e8c4f83a9db8a38b3ed7bf.png" />
 </div>
 </div>
 </section>
@@ -903,11 +786,11 @@ document.write(`
       </div>
     </a>
     <a class="right-next"
-       href="../examples_heterogeneous/001_heterogeneous_inflow_single.html"
+       href="004_plot_velocity_deficit_profiles.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Example: Heterogeneous Inflow for single case</p>
+        <p class="prev-next-title">Example: Plot velocity deficit profiles</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>

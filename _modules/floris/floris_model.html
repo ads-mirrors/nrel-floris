@@ -376,7 +376,8 @@ window.addEventListener("load", () => mermaid.run());
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="../../examples/examples_get_flow/001_extract_wind_speed_at_turbines.html">Example: Extract wind speed at turbines</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../examples/examples_get_flow/002_extract_wind_speed_at_points.html">Example: Extract wind speed at points</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../examples/examples_get_flow/003_plot_velocity_deficit_profiles.html">Example: Plot velocity deficit profiles</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../examples/examples_get_flow/003_extract_turbulence_intensity_at_points.html">Example: Extract turbulence intensity at points</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../examples/examples_get_flow/004_plot_velocity_deficit_profiles.html">Example: Plot velocity deficit profiles</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Examples - Heterogeneous</span></p>
 <ul class="nav bd-sidenav">
@@ -2044,6 +2045,28 @@ document.write(`
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;x, y, and z must be the same size&quot;</span><span class="p">)</span>
 
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">core</span><span class="o">.</span><span class="n">solve_for_points</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="FlorisModel.sample_ti_at_points">
+<a class="viewcode-back" href="../../_autosummary/floris.floris_model.html#floris.floris_model.FlorisModel.sample_ti_at_points">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">sample_ti_at_points</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="n">NDArrayFloat</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="n">NDArrayFloat</span><span class="p">,</span> <span class="n">z</span><span class="p">:</span> <span class="n">NDArrayFloat</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Extract the turbulence intensity at points in the flow.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            x (1DArrayFloat | list): x-locations of points where TI is desired.</span>
+<span class="sd">            y (1DArrayFloat | list): y-locations of points where TI is desired.</span>
+<span class="sd">            z (1DArrayFloat | list): z-locations of points where TI is desired.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            3DArrayFloat containing turbulence intensity with dimensions</span>
+<span class="sd">            (# of findex, # of sample points)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">sample_flow_at_points</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">)</span> <span class="c1"># Solve, but ignore returned velocities</span>
+
+        <span class="c1"># Remove grid dimensions and return sorted TI field</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">core</span><span class="o">.</span><span class="n">flow_field</span><span class="o">.</span><span class="n">turbulence_intensity_field_sorted</span><span class="p">[:,</span> <span class="p">:,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span></div>
 
 
 <div class="viewcode-block" id="FlorisModel.sample_velocity_deficit_profiles">
