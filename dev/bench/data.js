@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1756076100270,
+  "lastUpdate": 1757979075905,
   "repoUrl": "https://github.com/NREL/floris",
   "entries": {
     "Python Benchmark with pytest-benchmark": [
@@ -2678,6 +2678,72 @@ window.BENCHMARK_DATA = {
             "unit": "iter/sec",
             "range": "stddev: 0.00039963878650672884",
             "extra": "mean: 8.392304333340993 msec\nrounds: 75"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "max.tan@hotmail.de",
+            "name": "mkrause-strath",
+            "username": "mkrause-strath"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "bdda82184fb4d638eae0a65d28da4f5b4ef2436e",
+          "message": "[BUGFIX] Tilt cosine law correction (#1126)\n\n* fix tilt cosine law correction\n\n* Allow small tolerence on dataframe comparison\n\n* Unit test for rotor velocity and reg tests for tilt response in EmGauss model\n\n* Specify tolerences\n\n* Revert debug flag in test\n\n* fix thrust tilt cosine law correction\n\n* Update reg tests that use non-reference tilt angles\n\n* Update docs for CosineLoss model\n\n---------\n\nCo-authored-by: misi9170 <michael.sinner@nrel.gov>",
+          "timestamp": "2025-09-15T17:08:09-06:00",
+          "tree_id": "235a1010cabd0d090b0d7a088a01732c84c215e8",
+          "url": "https://github.com/NREL/floris/commit/bdda82184fb4d638eae0a65d28da4f5b4ef2436e"
+        },
+        "date": 1757979074044,
+        "tool": "pytest",
+        "benches": [
+          {
+            "name": "benchmarks/bench.py::test_timing_small_farm_set",
+            "value": 43.102471746540424,
+            "unit": "iter/sec",
+            "range": "stddev: 0.00014370194610990904",
+            "extra": "mean: 23.200525619050236 msec\nrounds: 42"
+          },
+          {
+            "name": "benchmarks/bench.py::test_timing_small_farm_run",
+            "value": 56.929611605936444,
+            "unit": "iter/sec",
+            "range": "stddev: 0.00008538616677103342",
+            "extra": "mean: 17.565551068957635 msec\nrounds: 29"
+          },
+          {
+            "name": "benchmarks/bench.py::test_timing_large_farm_set",
+            "value": 25.080506466340665,
+            "unit": "iter/sec",
+            "range": "stddev: 0.0009756767725642198",
+            "extra": "mean: 39.87160312500274 msec\nrounds: 24"
+          },
+          {
+            "name": "benchmarks/bench.py::test_timing_large_farm_run",
+            "value": 0.28959830805640907,
+            "unit": "iter/sec",
+            "range": "stddev: 0.011193784004415492",
+            "extra": "mean: 3.453058847999955 sec\nrounds: 5"
+          },
+          {
+            "name": "benchmarks/bench.py::test_timing_het_set",
+            "value": 35.88489079826402,
+            "unit": "iter/sec",
+            "range": "stddev: 0.00048642660169625037",
+            "extra": "mean: 27.866881513496942 msec\nrounds: 37"
+          },
+          {
+            "name": "benchmarks/bench.py::test_timing_het_run",
+            "value": 118.72633766292854,
+            "unit": "iter/sec",
+            "range": "stddev: 0.00048488064362096445",
+            "extra": "mean: 8.422730959991895 msec\nrounds: 100"
           }
         ]
       }
