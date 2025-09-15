@@ -893,7 +893,8 @@ document.write(`
         <span class="n">thrust_coefficient</span> <span class="o">=</span> <span class="p">(</span>
             <span class="n">thrust_coefficient</span>
             <span class="o">*</span> <span class="n">cosd</span><span class="p">(</span><span class="n">yaw_angles</span><span class="p">)</span>
-            <span class="o">*</span> <span class="n">cosd</span><span class="p">(</span><span class="n">tilt_angles</span> <span class="o">-</span> <span class="n">power_thrust_table</span><span class="p">[</span><span class="s2">&quot;ref_tilt&quot;</span><span class="p">])</span>
+            <span class="o">*</span> <span class="n">cosd</span><span class="p">(</span><span class="n">tilt_angles</span><span class="p">)</span>
+            <span class="o">/</span> <span class="n">cosd</span><span class="p">(</span><span class="n">power_thrust_table</span><span class="p">[</span><span class="s2">&quot;ref_tilt&quot;</span><span class="p">])</span>
         <span class="p">)</span>
 
         <span class="k">return</span> <span class="n">thrust_coefficient</span></div>
@@ -924,7 +925,9 @@ document.write(`
             <span class="n">correct_cp_ct_for_tilt</span><span class="o">=</span><span class="n">correct_cp_ct_for_tilt</span>
         <span class="p">)</span>
 
-        <span class="n">misalignment_loss</span> <span class="o">=</span> <span class="n">cosd</span><span class="p">(</span><span class="n">yaw_angles</span><span class="p">)</span> <span class="o">*</span> <span class="n">cosd</span><span class="p">(</span><span class="n">tilt_angles</span> <span class="o">-</span> <span class="n">power_thrust_table</span><span class="p">[</span><span class="s2">&quot;ref_tilt&quot;</span><span class="p">])</span>
+        <span class="n">misalignment_loss</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="n">cosd</span><span class="p">(</span><span class="n">yaw_angles</span><span class="p">)</span> <span class="o">*</span> <span class="n">cosd</span><span class="p">(</span><span class="n">tilt_angles</span><span class="p">)</span> <span class="o">/</span> <span class="n">cosd</span><span class="p">(</span><span class="n">power_thrust_table</span><span class="p">[</span><span class="s2">&quot;ref_tilt&quot;</span><span class="p">])</span>
+        <span class="p">)</span>
         <span class="k">return</span> <span class="mf">0.5</span> <span class="o">/</span> <span class="n">misalignment_loss</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">thrust_coefficient</span> <span class="o">*</span> <span class="n">misalignment_loss</span><span class="p">))</span></div>
 </div>
 

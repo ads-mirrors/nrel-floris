@@ -743,8 +743,8 @@ We also describe the different parameters that must be specified in the turbine
 cosine-loss operation model powers [kW]:  [[1561.31837381  778.04338242  651.77709894]]
 </pre></div>
 </div>
-<img alt="_images/98b411ecc03ff041125b88401d54ee2cac855c860d768f72d06c6b07ee1da016.png" src="_images/98b411ecc03ff041125b88401d54ee2cac855c860d768f72d06c6b07ee1da016.png" />
-<img alt="_images/67de466d821d87297f55ac7a8b01514405e003a7eae7ee25a27cb9a2dfafed15.png" src="_images/67de466d821d87297f55ac7a8b01514405e003a7eae7ee25a27cb9a2dfafed15.png" />
+<img alt="_images/c321fa9df717404744b65f71145686b82cfc91413fc8eb2b71c3973964cf1da0.png" src="_images/c321fa9df717404744b65f71145686b82cfc91413fc8eb2b71c3973964cf1da0.png" />
+<img alt="_images/e6f3d8686a3c87fa52af424df4a3481aa0dad332dc8bd68c97975c16bd7ea37d.png" src="_images/e6f3d8686a3c87fa52af424df4a3481aa0dad332dc8bd68c97975c16bd7ea37d.png" />
 </div>
 </div>
 </section>
@@ -783,10 +783,14 @@ often used as a baseline or for users wanting to evaluate wind farms in nominal 
 <p>The <code class="docutils literal notranslate"><span class="pre">&quot;cosine-loss&quot;</span></code> operation model describes the decrease in power and thrust produced by a
 wind turbine as it yaws (or tilts) away from the incoming wind. The thrust is reduced by a factor of
 <span class="math notranslate nohighlight">\(\cos \gamma\)</span>, where <span class="math notranslate nohighlight">\(\gamma\)</span> is the yaw misalignment angle, while the power is reduced by a factor
-of <span class="math notranslate nohighlight">\((\cos\gamma)^{p_P}\)</span>, where <span class="math notranslate nohighlight">\(p_P\)</span> is the cosine loss exponent, specified by <code class="docutils literal notranslate"><span class="pre">cosine_loss_exponent_yaw</span></code>
-(or <code class="docutils literal notranslate"><span class="pre">cosine_loss_exponent_tilt</span></code> for tilt angles). The power and thrust produced by the turbine
+of <span class="math notranslate nohighlight">\((\cos\gamma)^{p_P}\)</span>, where <span class="math notranslate nohighlight">\(p_P\)</span> is the cosine loss exponent, specified by <code class="docutils literal notranslate"><span class="pre">cosine_loss_exponent_yaw</span></code>.
+Similarly, the thrust and power are reduced by factors of <span class="math notranslate nohighlight">\((\cos \theta / \cos \theta_{ref})\)</span> and
+<span class="math notranslate nohighlight">\((\cos \theta / \cos \theta_{ref})^{p_T}\)</span>, respectively, where <span class="math notranslate nohighlight">\(\theta\)</span> is the tilt angle,
+<span class="math notranslate nohighlight">\(\theta_{ref}\)</span> is the reference tilt angle under which the power and thrust curves are specified, and
+<span class="math notranslate nohighlight">\(p_T\)</span> is the cosine loss exponent for tilt, specified by <code class="docutils literal notranslate"><span class="pre">cosine_loss_exponent_tilt</span></code>.
+The power and thrust produced by the turbine
 thus vary as a function of the turbine's yaw angle, set using the <code class="docutils literal notranslate"><span class="pre">yaw_angles</span></code> argument to
-<code class="docutils literal notranslate"><span class="pre">FlorisModel.set()</span></code>.</p>
+<code class="docutils literal notranslate"><span class="pre">FlorisModel.set()</span></code>, and tilt angle (if applicable, for example for floating wind turbines).</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">floris</span><span class="w"> </span><span class="kn">import</span> <span class="n">TimeSeries</span>
@@ -824,7 +828,7 @@ thus vary as a function of the turbine's yaw angle, set using the <code class="d
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Text(0, 0.5, &#39;Power [kW]&#39;)
 </pre></div>
 </div>
-<img alt="_images/8fe7d026697014b8751b5df4f4dbcd834e2257352431e54cb284f50032cfc23f.png" src="_images/8fe7d026697014b8751b5df4f4dbcd834e2257352431e54cb284f50032cfc23f.png" />
+<img alt="_images/55460a28e1745c87b04afccb3730cc0da8790f0fe472309fea5b5af9f9f93204.png" src="_images/55460a28e1745c87b04afccb3730cc0da8790f0fe472309fea5b5af9f9f93204.png" />
 </div>
 </div>
 </section>
@@ -874,7 +878,7 @@ appropriate entries of <code class="docutils literal notranslate"><span class="p
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/home/runner/work/floris/floris/floris/core/turbine/operation_models.py:358: RuntimeWarning: divide by zero encountered in divide
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/home/runner/work/floris/floris/floris/core/turbine/operation_models.py:361: RuntimeWarning: divide by zero encountered in divide
   power_fractions = power_setpoints / base_powers
 /home/runner/work/floris/floris/floris/core/wake_deflection/gauss.py:328: RuntimeWarning: invalid value encountered in divide
   val = 2 * (avg_v - v_core) / (v_top + v_bottom)
@@ -887,7 +891,7 @@ appropriate entries of <code class="docutils literal notranslate"><span class="p
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Text(0, 0.5, &#39;Power [kW]&#39;)
 </pre></div>
 </div>
-<img alt="_images/6b92e61ea149c712be1ef9f7637986969cc4692ff32b729c6a4377ebc262c56a.png" src="_images/6b92e61ea149c712be1ef9f7637986969cc4692ff32b729c6a4377ebc262c56a.png" />
+<img alt="_images/63fa6dcc11914e8f209bc65cccf3551f9bc23be8d0346960933106f97cc48ddc.png" src="_images/63fa6dcc11914e8f209bc65cccf3551f9bc23be8d0346960933106f97cc48ddc.png" />
 </div>
 </div>
 </section>
@@ -1083,7 +1087,7 @@ i.e. the lesser solution to <span class="math notranslate nohighlight">\(C_T=4a(
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Text(0, 0.5, &#39;Power [kW]&#39;)
 </pre></div>
 </div>
-<img alt="_images/0ef8f3d2fa704eea7c30fb82bad719b5a96327ffad5ccd36b1575fd5842723f5.png" src="_images/0ef8f3d2fa704eea7c30fb82bad719b5a96327ffad5ccd36b1575fd5842723f5.png" />
+<img alt="_images/98bcff3f393a3addde95f1c0363a26b18b5de8794aa07e6b387924fc87019dbe.png" src="_images/98bcff3f393a3addde95f1c0363a26b18b5de8794aa07e6b387924fc87019dbe.png" />
 </div>
 </div>
 </section>
@@ -1182,7 +1186,7 @@ Evaluating model: controller-dependent
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Text(0, 0.5, &#39;Normalized turbine power [deg]&#39;)
 </pre></div>
 </div>
-<img alt="_images/1dd600e242986be83a58d7a0aac99c59e7a1d555f192da34a606e2e642682a69.png" src="_images/1dd600e242986be83a58d7a0aac99c59e7a1d555f192da34a606e2e642682a69.png" />
+<img alt="_images/c9836da6233ee92d015c97333890bd89780304eeeebc9a18a9757451f9fb4b1c.png" src="_images/c9836da6233ee92d015c97333890bd89780304eeeebc9a18a9757451f9fb4b1c.png" />
 </div>
 </div>
 <p><strong>WARNING</strong>: The power and thrust curves generated by querying tabulated data as a function of blade pitch and tip-speed ratio for the reference wind turbines is <em>not</em> an exact match for the reference power and thrust curves found at the IEA Wind Task 37's <a class="reference external" href="https://github.com/IEAWindTask37">Github page</a> or the NREL 5MW <a class="reference external" href="https://github.com/NREL/turbine-models/blob/master/Offshore/NREL_5MW_126_RWT_corrected.csv">reference data</a>. As such, results using the Controller-dependent model, which rely on these <span class="math notranslate nohighlight">\(C_P\)</span> and <span class="math notranslate nohighlight">\(C_T\)</span> tables, should be considered demonstrative only and not necessarily consistent with other results using the reference wind turbines.</p>
@@ -1271,9 +1275,9 @@ Evaluating model: controller-dependent
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Powers more than 1% above rated detected. Consider checking Cp-Ct data.
 </pre></div>
 </div>
-<img alt="_images/a4fea99907bf3fe633adf5de3aa68607547395463760c96f213914de015bc474.png" src="_images/a4fea99907bf3fe633adf5de3aa68607547395463760c96f213914de015bc474.png" />
-<img alt="_images/2f315f86ecd4b7c907c829c62fb4b63ad4ea67d5dd376293203671466712ad1a.png" src="_images/2f315f86ecd4b7c907c829c62fb4b63ad4ea67d5dd376293203671466712ad1a.png" />
-<img alt="_images/ec6a6571558b9eb0fb39ae67ae73f6b216115240c9fa14d72297face0076884d.png" src="_images/ec6a6571558b9eb0fb39ae67ae73f6b216115240c9fa14d72297face0076884d.png" />
+<img alt="_images/4151dcb6323c35dbf41b6f2c7738fbfe19fd9d65ac5ca2bf34aebb240bd6fa4b.png" src="_images/4151dcb6323c35dbf41b6f2c7738fbfe19fd9d65ac5ca2bf34aebb240bd6fa4b.png" />
+<img alt="_images/e4a7dec4b9203e18f572204b5e63a8c86ac9ff9bc96deb0f63c8aa77946eba0c.png" src="_images/e4a7dec4b9203e18f572204b5e63a8c86ac9ff9bc96deb0f63c8aa77946eba0c.png" />
+<img alt="_images/b726631d9136d1a8f9ffee01c5018a3f5d49d8e11f938c735b17ea52aaca9f88.png" src="_images/b726631d9136d1a8f9ffee01c5018a3f5d49d8e11f938c735b17ea52aaca9f88.png" />
 </div>
 </div>
 </section>
@@ -1340,7 +1344,7 @@ This low thrust limit will be accurate for thrust coefficients approximately les
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Text(0, 0.5, &#39;Power ratio, $P(\\gamma)/P(0)$&#39;)
 </pre></div>
 </div>
-<img alt="_images/ea43dece6dbd8a63587400e5297285665a2defec861c9b033ab638dd77a76758.png" src="_images/ea43dece6dbd8a63587400e5297285665a2defec861c9b033ab638dd77a76758.png" />
+<img alt="_images/99a70b73cb57500802c1cf35c6e97cd4f1da4b24c5487023009a38a575c21423.png" src="_images/99a70b73cb57500802c1cf35c6e97cd4f1da4b24c5487023009a38a575c21423.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -1372,7 +1376,7 @@ This low thrust limit will be accurate for thrust coefficients approximately les
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Text(0, 0.5, &#39;Axial induction ratio, $a_n(\\gamma) / a_n(0)$&#39;)
 </pre></div>
 </div>
-<img alt="_images/6cf3bddd3a4d14fa0d442ff30a4ad9dda672d8af6a0d8415e34428ed9ede4d41.png" src="_images/6cf3bddd3a4d14fa0d442ff30a4ad9dda672d8af6a0d8415e34428ed9ede4d41.png" />
+<img alt="_images/09ff53ae8307117a622efd4e602cf5498eddd12d55b0d1c53ad4b7bac2f385da.png" src="_images/09ff53ae8307117a622efd4e602cf5498eddd12d55b0d1c53ad4b7bac2f385da.png" />
 </div>
 </div>
 </section>

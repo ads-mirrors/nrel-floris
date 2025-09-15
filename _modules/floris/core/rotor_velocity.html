@@ -648,11 +648,11 @@ document.write(`
     <span class="n">tilt_angles</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">correct_cp_ct_for_tilt</span><span class="p">,</span> <span class="n">tilt_angles</span><span class="p">,</span> <span class="n">old_tilt_angle</span><span class="p">)</span>
 
     <span class="c1"># Compute the rotor effective velocity adjusting for tilt</span>
-    <span class="n">relative_tilt</span> <span class="o">=</span> <span class="n">tilt_angles</span> <span class="o">-</span> <span class="n">ref_tilt</span>
     <span class="n">rotor_effective_velocities</span> <span class="o">=</span> <span class="p">(</span>
         <span class="n">rotor_effective_velocities</span>
-        <span class="o">*</span> <span class="n">cosd</span><span class="p">(</span><span class="n">relative_tilt</span><span class="p">)</span> <span class="o">**</span> <span class="p">(</span><span class="n">cosine_loss_exponent_tilt</span> <span class="o">/</span> <span class="mf">3.0</span><span class="p">)</span>
+        <span class="o">*</span> <span class="p">(</span><span class="n">cosd</span><span class="p">(</span><span class="n">tilt_angles</span><span class="p">)</span> <span class="o">/</span> <span class="n">cosd</span><span class="p">(</span><span class="n">ref_tilt</span><span class="p">))</span> <span class="o">**</span> <span class="p">(</span><span class="n">cosine_loss_exponent_tilt</span> <span class="o">/</span> <span class="mf">3.0</span><span class="p">)</span>
     <span class="p">)</span>
+
     <span class="k">return</span> <span class="n">rotor_effective_velocities</span></div>
 
 
