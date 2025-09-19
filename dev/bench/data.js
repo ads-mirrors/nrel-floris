@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1757979075905,
+  "lastUpdate": 1758304174036,
   "repoUrl": "https://github.com/NREL/floris",
   "entries": {
     "Python Benchmark with pytest-benchmark": [
@@ -2744,6 +2744,72 @@ window.BENCHMARK_DATA = {
             "unit": "iter/sec",
             "range": "stddev: 0.00048488064362096445",
             "extra": "mean: 8.422730959991895 msec\nrounds: 100"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "39596329+misi9170@users.noreply.github.com",
+            "name": "misi9170",
+            "username": "misi9170"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "fc7f7e6f5672a1d5f48361ccb6fe02a112689c03",
+          "message": "[BUGFIX] Fix incorrect implementation in geometric yaw optimization (#1143)\n\n* Updated and made test\n\n* Dedicated test for tests_process_layout\n\n* Replace line erroneously removed\n\n* Remove zero as indicator for downstream as inf already acheives this.\n\n* Typo fixes and remove commented out code\n\n* Update function descriptions",
+          "timestamp": "2025-09-19T11:23:23-06:00",
+          "tree_id": "16d94936def9659c3f69d65009191c2c82f715f3",
+          "url": "https://github.com/NREL/floris/commit/fc7f7e6f5672a1d5f48361ccb6fe02a112689c03"
+        },
+        "date": 1758304172076,
+        "tool": "pytest",
+        "benches": [
+          {
+            "name": "benchmarks/bench.py::test_timing_small_farm_set",
+            "value": 42.65563562796875,
+            "unit": "iter/sec",
+            "range": "stddev: 0.00024259414372826115",
+            "extra": "mean: 23.443561097570726 msec\nrounds: 41"
+          },
+          {
+            "name": "benchmarks/bench.py::test_timing_small_farm_run",
+            "value": 56.06476940862504,
+            "unit": "iter/sec",
+            "range": "stddev: 0.000228647446444257",
+            "extra": "mean: 17.836513206922408 msec\nrounds: 29"
+          },
+          {
+            "name": "benchmarks/bench.py::test_timing_large_farm_set",
+            "value": 24.65588105286507,
+            "unit": "iter/sec",
+            "range": "stddev: 0.0009403400455589719",
+            "extra": "mean: 40.55827483333019 msec\nrounds: 24"
+          },
+          {
+            "name": "benchmarks/bench.py::test_timing_large_farm_run",
+            "value": 0.2857901173946808,
+            "unit": "iter/sec",
+            "range": "stddev: 0.018076534986909826",
+            "extra": "mean: 3.4990713084000165 sec\nrounds: 5"
+          },
+          {
+            "name": "benchmarks/bench.py::test_timing_het_set",
+            "value": 34.704511707882226,
+            "unit": "iter/sec",
+            "range": "stddev: 0.00129006949704146",
+            "extra": "mean: 28.814697305563186 msec\nrounds: 36"
+          },
+          {
+            "name": "benchmarks/bench.py::test_timing_het_run",
+            "value": 116.65119896070573,
+            "unit": "iter/sec",
+            "range": "stddev: 0.00012974449040681582",
+            "extra": "mean: 8.572565125000153 msec\nrounds: 96"
           }
         ]
       }
