@@ -671,7 +671,7 @@ document.write(`
 <div class="pst-scrollable-table-container"><table class="autosummary longtable table autosummary">
 <tbody>
 <tr class="row-odd"><td><p><a class="reference internal" href="#floris.optimization.yaw_optimization.yaw_optimizer_geometric.geometric_yaw" title="floris.optimization.yaw_optimization.yaw_optimizer_geometric.geometric_yaw"><code class="xref py py-obj docutils literal notranslate"><span class="pre">geometric_yaw</span></code></a>(turbine_x, turbine_y, ...[, ...])</p></td>
-<td><p>turbine_x: unrotated x turbine coords turbine_y: unrotated y turbine coords wind_direction: float, degrees rotor_diameter: float left_x: where we start the trapezoid. Should be left as 0. top_left_y: trapezoid top left coord right_x: where to stop the trapezoid downstream. Max coord after which the upstream turbine won't yaw. top_right_y: trapezoid top right coord top_left_yaw_upper: yaw angle associated with top left point (upper trapezoid) top_right_yaw_upper: yaw angle associated with top right point bottom_left_yaw_upper: yaw angle associated with bottom left point bottom_right_yaw_upper: yaw angle associated with bottom right point top_left_yaw_lower: yaw angle associated with top left point (lower trapezoid) top_right_yaw_lower: yaw angle associated with top right point bottom_left_yaw_lower: yaw angle associated with bottom left point bottom_right_yaw_lower: yaw angle associated with bottom right point.</p></td>
+<td><p>Main function to compute geometric yaw angles based on wind farm layout for a single wind direction.</p></td>
 </tr>
 </tbody>
 </table>
@@ -692,7 +692,7 @@ document.write(`
 <code class="xref py py-class docutils literal notranslate"><span class="pre">floris.optimization.general_library.YawOptimization</span></code> that is
 used to provide a rough estimate of optimal yaw angles based purely on the
 wind farm geometry. Main use case is for coupled layout and yaw optimization.</p>
-<p>See Stanely et al. (2023) for details: <a class="reference external" href="https://wes.copernicus.org/articles/8/1341/2023/">https://wes.copernicus.org/articles/8/1341/2023/</a></p>
+<p>See Stanley et al. (2023) for details: <a class="reference external" href="https://wes.copernicus.org/articles/8/1341/2023/">https://wes.copernicus.org/articles/8/1341/2023/</a></p>
 <dl class="py method">
 <dt class="sig sig-object py" id="floris.optimization.yaw_optimization.yaw_optimizer_geometric.YawOptimizationGeometric.optimize">
 <span class="sig-name descname"><span class="pre">optimize</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/floris/optimization/yaw_optimization/yaw_optimizer_geometric.html#YawOptimizationGeometric.optimize"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#floris.optimization.yaw_optimization.yaw_optimizer_geometric.YawOptimizationGeometric.optimize" title="Link to this definition">#</a></dt>
@@ -710,7 +710,10 @@ array is equal in length to the number of turbines in the farm.</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="floris.optimization.yaw_optimization.yaw_optimizer_geometric.geometric_yaw">
 <span class="sig-prename descclassname"><span class="pre">floris.optimization.yaw_optimization.yaw_optimizer_geometric.</span></span><span class="sig-name descname"><span class="pre">geometric_yaw</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">turbine_x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">turbine_y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">wind_direction</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rotor_diameter</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">left_x</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">top_left_y</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">right_x</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">25.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">top_right_y</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">top_left_yaw_upper</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">30.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">top_right_yaw_upper</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bottom_left_yaw_upper</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">30.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bottom_right_yaw_upper</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">top_left_yaw_lower</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-30.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">top_right_yaw_lower</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bottom_left_yaw_lower</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-30.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bottom_right_yaw_lower</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/floris/optimization/yaw_optimization/yaw_optimizer_geometric.html#geometric_yaw"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#floris.optimization.yaw_optimization.yaw_optimizer_geometric.geometric_yaw" title="Link to this definition">#</a></dt>
-<dd><p>turbine_x: unrotated x turbine coords
+<dd><p>Main function to compute geometric yaw angles based on wind farm layout for a single wind
+direction.</p>
+<dl>
+<dt>Arguments:</dt><dd><p>turbine_x: unrotated x turbine coords
 turbine_y: unrotated y turbine coords
 wind_direction: float, degrees
 rotor_diameter: float
@@ -729,6 +732,10 @@ top_left_yaw_lower: yaw angle associated with top left point (lower trapezoid)
 top_right_yaw_lower: yaw angle associated with top right point
 bottom_left_yaw_lower: yaw angle associated with bottom left point
 bottom_right_yaw_lower: yaw angle associated with bottom right point</p>
+</dd>
+<dt>Returns:</dt><dd><p>yaw_array: yaw angles for all turbines for the present wind direction.</p>
+</dd>
+</dl>
 </dd></dl>
 
 </section>
