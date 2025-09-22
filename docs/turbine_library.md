@@ -1,4 +1,4 @@
-
+(turbine_library)=
 # Turbine Library
 
 FLORIS includes a library of predefined wind turbine models that can be used to quickly set up
