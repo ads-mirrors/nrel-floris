@@ -203,14 +203,18 @@
 <li class="toctree-l1"><a class="reference internal" href="../../wind_data_user.html">Wind Data Objects</a></li>
 
 <li class="toctree-l1"><a class="reference internal" href="../../floris_models.html">FLORIS Models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../input_reference_main.html">Main Input File Reference</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../turbine_models.html">Wind turbine models</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../input_reference_turbine.html">Turbine Input File Reference</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../operation_models_user.html">Turbine Operation Models</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../floating_wind_turbine.html">Floating Wind Turbine Modeling</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../multidimensional_wind_turbine.html">Multidimensional Wind Turbine</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../turbine_library.html">Turbine Library</a></li>
+</ul>
+</details></li>
 <li class="toctree-l1"><a class="reference internal" href="../../advanced_concepts.html">Advanced Concepts</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../heterogeneous_map.html">Heterogeneous Map</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../floating_wind_turbine.html">Floating Wind Turbine Modeling</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../turbine_interaction.html">Turbine Library Interface</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../operation_models_user.html">Turbine Operation Models</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../layout_optimization.html">Layout Optimization</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../input_reference_main.html">Main Input File Reference</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../input_reference_turbine.html">Turbine Input File Reference</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Theory and Background</span></p>
 <ul class="nav bd-sidenav">
@@ -394,8 +398,9 @@
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Examples - Multidim</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="../examples_multidim/001_multi_dimensional_cp_ct.html">Example: Multi-dimensional Cp/Ct data</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../examples_multidim/002_multi_dimensional_cp_ct_2Hs.html">Example: Multi-dimensional Cp/Ct with 2 Hs values</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../examples_multidim/001_multi_dimensional_cp_ct.html">Example: Multi-dimensional power/thrust coefficient data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../examples_multidim/002_multi_dimensional_cp_ct_2Hs.html">Example: Multi-dimensional power/thrust coefficient with 2 Hs values</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../examples_multidim/003_multi_dimensional_cp_ct_TI.html">Example: Multi-dimensional power/thrust coefficients with turbulence intensity</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Examples - Operation models</span></p>
 <ul class="nav bd-sidenav">
@@ -752,9 +757,6 @@ document.write(`
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Placing turbine 1 of 4.
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>
-</pre></div>
-</div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Placing turbine 1 of 4.
 </pre></div>
 </div>
@@ -764,12 +766,12 @@ document.write(`
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>
 </pre></div>
 </div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>
+</pre></div>
+</div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Placing turbine 1 of 4.
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>
-</pre></div>
-</div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Placing turbine 2 of 4.
 </pre></div>
 </div>
@@ -782,10 +784,31 @@ document.write(`
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Placing turbine 2 of 4.
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Placing turbine 2 of 4.
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Placing turbine 2 of 4.
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Placing turbine 3 of 4.
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Placing turbine 3 of 4.
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Placing turbine 3 of 4.
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>
@@ -800,32 +823,14 @@ document.write(`
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Placing turbine 3 of 4.
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Placing turbine 3 of 4.
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Placing turbine 3 of 4.
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  Time to generate initial layouts: 0.394 s
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  Time to generate initial layouts: 0.407 s
 =======================================
 Optimization step +0.0
 Optimization time = +0.4 [s]
-Mean AEP = 57.4 [GWh] (+2.05%)
-Median AEP = 57.4 [GWh] (+1.93%)
-Max AEP = 57.8 [GWh] (+2.72%)
-Min AEP = 57.2 [GWh] (+1.63%)
+Mean AEP = 57.6 [GWh] (+2.28%)
+Median AEP = 57.6 [GWh] (+2.31%)
+Max AEP = 57.7 [GWh] (+2.50%)
+Min AEP = 57.4 [GWh] (+2.01%)
 =======================================
 Random Layout Optimization
 Number of turbines to optimize = 4
@@ -839,43 +844,43 @@ Optimization time: 0.0 s / 60.0 s
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>=======================================
 Optimization step +1.0
-Optimization time = +10.5 [s]
-Mean AEP = 58.3 [GWh] (+3.63%)
-Median AEP = 58.6 [GWh] (+4.07%)
-Max AEP = 58.6 [GWh] (+4.20%)
-Min AEP = 57.5 [GWh] (+2.18%)
+Optimization time = +10.6 [s]
+Mean AEP = 58.6 [GWh] (+4.11%)
+Median AEP = 58.6 [GWh] (+4.10%)
+Max AEP = 58.6 [GWh] (+4.18%)
+Min AEP = 58.5 [GWh] (+4.05%)
 =======================================
-Optimization time: 10.1 s / 60.0 s
+Optimization time: 10.2 s / 60.0 s
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>=======================================
 Optimization step +2.0
-Optimization time = +20.6 [s]
-Mean AEP = 58.7 [GWh] (+4.36%)
-Median AEP = 58.7 [GWh] (+4.40%)
-Max AEP = 58.8 [GWh] (+4.44%)
+Optimization time = +20.7 [s]
+Mean AEP = 58.7 [GWh] (+4.32%)
+Median AEP = 58.7 [GWh] (+4.34%)
+Max AEP = 58.7 [GWh] (+4.38%)
 Min AEP = 58.6 [GWh] (+4.22%)
 =======================================
-Optimization time: 20.2 s / 60.0 s
+Optimization time: 20.3 s / 60.0 s
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>=======================================
 Optimization step +3.0
 Optimization time = +30.8 [s]
-Mean AEP = 58.8 [GWh] (+4.47%)
-Median AEP = 58.8 [GWh] (+4.46%)
-Max AEP = 58.8 [GWh] (+4.54%)
-Min AEP = 58.7 [GWh] (+4.41%)
+Mean AEP = 58.8 [GWh] (+4.46%)
+Median AEP = 58.8 [GWh] (+4.47%)
+Max AEP = 58.8 [GWh] (+4.49%)
+Min AEP = 58.8 [GWh] (+4.42%)
 =======================================
-Optimization time: 30.3 s / 60.0 s
+Optimization time: 30.4 s / 60.0 s
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>=======================================
 Optimization step +4.0
-Optimization time = +40.9 [s]
-Mean AEP = 58.8 [GWh] (+4.51%)
+Optimization time = +41.0 [s]
+Mean AEP = 58.8 [GWh] (+4.49%)
 Median AEP = 58.8 [GWh] (+4.50%)
-Max AEP = 58.8 [GWh] (+4.57%)
+Max AEP = 58.8 [GWh] (+4.51%)
 Min AEP = 58.8 [GWh] (+4.47%)
 =======================================
 Optimization time: 40.5 s / 60.0 s
@@ -883,11 +888,11 @@ Optimization time: 40.5 s / 60.0 s
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>=======================================
 Optimization step +5.0
-Optimization time = +51.0 [s]
-Mean AEP = 58.8 [GWh] (+4.54%)
-Median AEP = 58.8 [GWh] (+4.56%)
-Max AEP = 58.8 [GWh] (+4.57%)
-Min AEP = 58.8 [GWh] (+4.47%)
+Optimization time = +51.1 [s]
+Mean AEP = 58.8 [GWh] (+4.52%)
+Median AEP = 58.8 [GWh] (+4.52%)
+Max AEP = 58.8 [GWh] (+4.54%)
+Min AEP = 58.8 [GWh] (+4.51%)
 =======================================
 Optimization time: 50.6 s / 60.0 s
 </pre></div>
@@ -895,17 +900,17 @@ Optimization time: 50.6 s / 60.0 s
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>=======================================
 Optimization step +6.0
 Optimization time = +61.2 [s]
-Mean AEP = 58.8 [GWh] (+4.57%)
-Median AEP = 58.8 [GWh] (+4.57%)
+Mean AEP = 58.8 [GWh] (+4.55%)
+Median AEP = 58.8 [GWh] (+4.55%)
 Max AEP = 58.8 [GWh] (+4.57%)
-Min AEP = 58.8 [GWh] (+4.56%)
+Min AEP = 58.8 [GWh] (+4.53%)
 =======================================
 Final AEP = 58.8 [GWh] (+4.57%)
 </pre></div>
 </div>
 <img alt="../../_images/217e302e4cc4a4cfc7faae11aacf60948ba344761229f49b3e922e3dc3c13800.png" src="../../_images/217e302e4cc4a4cfc7faae11aacf60948ba344761229f49b3e922e3dc3c13800.png" />
-<img alt="../../_images/3375cdc179145ee100767f781487cf019780aad04f079bf24106f09a6d140ad3.png" src="../../_images/3375cdc179145ee100767f781487cf019780aad04f079bf24106f09a6d140ad3.png" />
-<img alt="../../_images/2365cdaa5157556a4f922589093c771b50d660277af4d7cb537db7d17ef1a95f.png" src="../../_images/2365cdaa5157556a4f922589093c771b50d660277af4d7cb537db7d17ef1a95f.png" />
+<img alt="../../_images/26a237b562911da14bae0e0446b0d1c64170348d1f938c4e8714d16864b727ed.png" src="../../_images/26a237b562911da14bae0e0446b0d1c64170348d1f938c4e8714d16864b727ed.png" />
+<img alt="../../_images/1fed8bc0c279b1bcdf0b5245306ef3001995f2c856d1fdd07e8bd4438862453d.png" src="../../_images/1fed8bc0c279b1bcdf0b5245306ef3001995f2c856d1fdd07e8bd4438862453d.png" />
 </div>
 </div>
 </section>

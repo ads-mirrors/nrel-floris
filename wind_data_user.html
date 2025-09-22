@@ -203,14 +203,18 @@
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">Wind Data Objects</a></li>
 
 <li class="toctree-l1"><a class="reference internal" href="floris_models.html">FLORIS Models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="input_reference_main.html">Main Input File Reference</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="turbine_models.html">Wind turbine models</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="input_reference_turbine.html">Turbine Input File Reference</a></li>
+<li class="toctree-l2"><a class="reference internal" href="operation_models_user.html">Turbine Operation Models</a></li>
+<li class="toctree-l2"><a class="reference internal" href="floating_wind_turbine.html">Floating Wind Turbine Modeling</a></li>
+<li class="toctree-l2"><a class="reference internal" href="multidimensional_wind_turbine.html">Multidimensional Wind Turbine</a></li>
+<li class="toctree-l2"><a class="reference internal" href="turbine_library.html">Turbine Library</a></li>
+</ul>
+</details></li>
 <li class="toctree-l1"><a class="reference internal" href="advanced_concepts.html">Advanced Concepts</a></li>
 <li class="toctree-l1"><a class="reference internal" href="heterogeneous_map.html">Heterogeneous Map</a></li>
-<li class="toctree-l1"><a class="reference internal" href="floating_wind_turbine.html">Floating Wind Turbine Modeling</a></li>
-<li class="toctree-l1"><a class="reference internal" href="turbine_interaction.html">Turbine Library Interface</a></li>
-<li class="toctree-l1"><a class="reference internal" href="operation_models_user.html">Turbine Operation Models</a></li>
 <li class="toctree-l1"><a class="reference internal" href="layout_optimization.html">Layout Optimization</a></li>
-<li class="toctree-l1"><a class="reference internal" href="input_reference_main.html">Main Input File Reference</a></li>
-<li class="toctree-l1"><a class="reference internal" href="input_reference_turbine.html">Turbine Input File Reference</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Theory and Background</span></p>
 <ul class="nav bd-sidenav">
@@ -394,8 +398,9 @@
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Examples - Multidim</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="examples/examples_multidim/001_multi_dimensional_cp_ct.html">Example: Multi-dimensional Cp/Ct data</a></li>
-<li class="toctree-l1"><a class="reference internal" href="examples/examples_multidim/002_multi_dimensional_cp_ct_2Hs.html">Example: Multi-dimensional Cp/Ct with 2 Hs values</a></li>
+<li class="toctree-l1"><a class="reference internal" href="examples/examples_multidim/001_multi_dimensional_cp_ct.html">Example: Multi-dimensional power/thrust coefficient data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="examples/examples_multidim/002_multi_dimensional_cp_ct_2Hs.html">Example: Multi-dimensional power/thrust coefficient with 2 Hs values</a></li>
+<li class="toctree-l1"><a class="reference internal" href="examples/examples_multidim/003_multi_dimensional_cp_ct_TI.html">Example: Multi-dimensional power/thrust coefficients with turbulence intensity</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Examples - Operation models</span></p>
 <ul class="nav bd-sidenav">
@@ -946,7 +951,7 @@ wind_rose.value_table
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;PolarAxes: &gt;
 </pre></div>
 </div>
-<img alt="_images/a2edb623d4705e4c0aa5e6cddd04c67bdbb3453f00d77f6cdf0d0a955b678e1c.png" src="_images/a2edb623d4705e4c0aa5e6cddd04c67bdbb3453f00d77f6cdf0d0a955b678e1c.png" />
+<img alt="_images/9bea1c2c75eb767c9b38be22b7b45f1a8344e913741731b9f4a591d4273d70f8.png" src="_images/9bea1c2c75eb767c9b38be22b7b45f1a8344e913741731b9f4a591d4273d70f8.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -962,7 +967,7 @@ wind_rose.value_table
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;PolarAxes: &gt;
 </pre></div>
 </div>
-<img alt="_images/0f7986d0f786f442661bc1fbb8241cf6a2f5e6e0bb238e5cd8c3918e9f9cd1cf.png" src="_images/0f7986d0f786f442661bc1fbb8241cf6a2f5e6e0bb238e5cd8c3918e9f9cd1cf.png" />
+<img alt="_images/fdc28b147b912e3699a0814e51a042b196490ab7ba5a2cf1cb437bd164dada94.png" src="_images/fdc28b147b912e3699a0814e51a042b196490ab7ba5a2cf1cb437bd164dada94.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -978,7 +983,7 @@ wind_rose.value_table
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;PolarAxes: &gt;
 </pre></div>
 </div>
-<img alt="_images/e2743f287327594b3dcb9a548450050d032a103184ae082c737dadab3c6ee5a9.png" src="_images/e2743f287327594b3dcb9a548450050d032a103184ae082c737dadab3c6ee5a9.png" />
+<img alt="_images/b40e3ab93758f9b1c0780777bd69a590c2737cf0ef8beb604cd8203df0653c07.png" src="_images/b40e3ab93758f9b1c0780777bd69a590c2737cf0ef8beb604cd8203df0653c07.png" />
 </div>
 </div>
 </section>
@@ -1012,8 +1017,8 @@ wind_rose.value_table
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/ff2afc3d71aded1b15697cd8d27c87a4d1446c3428b2be1cb58dfd5b5de23367.png" src="_images/ff2afc3d71aded1b15697cd8d27c87a4d1446c3428b2be1cb58dfd5b5de23367.png" />
-<img alt="_images/3d9214ff8930e8ebb3ec0fca997491c704e5623fb3576e12a405d7c2abf8228b.png" src="_images/3d9214ff8930e8ebb3ec0fca997491c704e5623fb3576e12a405d7c2abf8228b.png" />
+<img alt="_images/d7a5e9ab3a37243c798186325a280e6a9d06c4142845f1827312bd74dab76024.png" src="_images/d7a5e9ab3a37243c798186325a280e6a9d06c4142845f1827312bd74dab76024.png" />
+<img alt="_images/710cb70628c83d9bffd5ee3de3ffc079aada4ce012ed37d492cb4cc487976afd.png" src="_images/710cb70628c83d9bffd5ee3de3ffc079aada4ce012ed37d492cb4cc487976afd.png" />
 <img alt="_images/32ce46201e0ffa3746d80da3e85f235e386e3b332fa91b35e86ecf87cd4f3ff0.png" src="_images/32ce46201e0ffa3746d80da3e85f235e386e3b332fa91b35e86ecf87cd4f3ff0.png" />
 <img alt="_images/774e8a1766d527f87e4ec62e1b75ed047bf027d956f50cb5138114403b588b7a.png" src="_images/774e8a1766d527f87e4ec62e1b75ed047bf027d956f50cb5138114403b588b7a.png" />
 </div>

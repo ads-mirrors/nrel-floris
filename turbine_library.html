@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Turbine Library Interface &#8212; FLORIS</title>
+    <title>Turbine Library &#8212; FLORIS</title>
   
   
   
@@ -70,11 +70,11 @@
                 gtag('config', 'G-JV2SK7CNPR');
             </script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'turbine_interaction';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'turbine_library';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Turbine Operation Models" href="operation_models_user.html" />
-    <link rel="prev" title="Floating Wind Turbine Modeling" href="floating_wind_turbine.html" />
+    <link rel="next" title="Advanced Concepts" href="advanced_concepts.html" />
+    <link rel="prev" title="Multidimensional Wind Turbine" href="multidimensional_wind_turbine.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="python"/>
   </head>
@@ -203,14 +203,18 @@
 <li class="toctree-l1"><a class="reference internal" href="wind_data_user.html">Wind Data Objects</a></li>
 
 <li class="toctree-l1"><a class="reference internal" href="floris_models.html">FLORIS Models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="input_reference_main.html">Main Input File Reference</a></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="turbine_models.html">Wind turbine models</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="input_reference_turbine.html">Turbine Input File Reference</a></li>
+<li class="toctree-l2"><a class="reference internal" href="operation_models_user.html">Turbine Operation Models</a></li>
+<li class="toctree-l2"><a class="reference internal" href="floating_wind_turbine.html">Floating Wind Turbine Modeling</a></li>
+<li class="toctree-l2"><a class="reference internal" href="multidimensional_wind_turbine.html">Multidimensional Wind Turbine</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">Turbine Library</a></li>
+</ul>
+</details></li>
 <li class="toctree-l1"><a class="reference internal" href="advanced_concepts.html">Advanced Concepts</a></li>
 <li class="toctree-l1"><a class="reference internal" href="heterogeneous_map.html">Heterogeneous Map</a></li>
-<li class="toctree-l1"><a class="reference internal" href="floating_wind_turbine.html">Floating Wind Turbine Modeling</a></li>
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">Turbine Library Interface</a></li>
-<li class="toctree-l1"><a class="reference internal" href="operation_models_user.html">Turbine Operation Models</a></li>
 <li class="toctree-l1"><a class="reference internal" href="layout_optimization.html">Layout Optimization</a></li>
-<li class="toctree-l1"><a class="reference internal" href="input_reference_main.html">Main Input File Reference</a></li>
-<li class="toctree-l1"><a class="reference internal" href="input_reference_turbine.html">Turbine Input File Reference</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Theory and Background</span></p>
 <ul class="nav bd-sidenav">
@@ -394,8 +398,9 @@
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Examples - Multidim</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="examples/examples_multidim/001_multi_dimensional_cp_ct.html">Example: Multi-dimensional Cp/Ct data</a></li>
-<li class="toctree-l1"><a class="reference internal" href="examples/examples_multidim/002_multi_dimensional_cp_ct_2Hs.html">Example: Multi-dimensional Cp/Ct with 2 Hs values</a></li>
+<li class="toctree-l1"><a class="reference internal" href="examples/examples_multidim/001_multi_dimensional_cp_ct.html">Example: Multi-dimensional power/thrust coefficient data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="examples/examples_multidim/002_multi_dimensional_cp_ct_2Hs.html">Example: Multi-dimensional power/thrust coefficient with 2 Hs values</a></li>
+<li class="toctree-l1"><a class="reference internal" href="examples/examples_multidim/003_multi_dimensional_cp_ct_TI.html">Example: Multi-dimensional power/thrust coefficients with turbulence intensity</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Examples - Operation models</span></p>
 <ul class="nav bd-sidenav">
@@ -508,7 +513,7 @@
       
       
       
-      <li><a href="https://github.com/NREL/floris/edit/main/docs/turbine_interaction.ipynb" target="_blank"
+      <li><a href="https://github.com/NREL/floris/edit/main/docs/turbine_library.md" target="_blank"
    class="btn btn-sm btn-source-edit-button dropdown-item"
    title="Suggest edit"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -525,7 +530,7 @@
       
       
       
-      <li><a href="https://github.com/NREL/floris/issues/new?title=Issue%20on%20page%20%2Fturbine_interaction.html&body=Your%20issue%20content%20here." target="_blank"
+      <li><a href="https://github.com/NREL/floris/issues/new?title=Issue%20on%20page%20%2Fturbine_library.html&body=Your%20issue%20content%20here." target="_blank"
    class="btn btn-sm btn-source-issues-button dropdown-item"
    title="Open an issue"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -555,7 +560,7 @@
       
       
       
-      <li><a href="_sources/turbine_interaction.ipynb" target="_blank"
+      <li><a href="_sources/turbine_library.md" target="_blank"
    class="btn btn-sm btn-download-source-button dropdown-item"
    title="Download source file"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -565,7 +570,7 @@
 <span class="btn__icon-container">
   <i class="fas fa-file"></i>
   </span>
-<span class="btn__text-container">.ipynb</span>
+<span class="btn__text-container">.md</span>
 </a>
 </li>
       
@@ -639,7 +644,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Turbine Library Interface</h1>
+    <h1>Turbine Library</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -649,23 +654,11 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#setup">Setup</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#interacting-with-a-single-turbine">Interacting With A Single Turbine</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#single-dimensional-turbine">Single Dimensional Turbine</a><ul class="nav section-nav flex-column">
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#plot-the-core-attributes">Plot the core attributes</a></li>
-</ul>
-</li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#interacting-with-a-multi-dimensional-turbine">Interacting With A Multi-Dimensional Turbine</a><ul class="nav section-nav flex-column">
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Plot the core attributes</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#compare-multiple-turbines">Compare multiple turbines</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#loading-the-libraries">Loading the libraries</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#comparing-turbines">Comparing turbines</a></li>
-</ul>
-</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#nrel-5mw-reference-wind-turbine">NREL 5MW reference wind turbine</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#iea-15mw-reference-wind-turbine">IEA 15MW reference wind turbine</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#iea-10mw-reference-wind-turbine">IEA 10MW reference wind turbine</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#iea-15mw-multidimensional">IEA 15MW multidimensional</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#iea-15mw-floating-multidimensional">IEA 15MW floating, multidimensional</a></li>
 </ul>
             </nav>
         </div>
@@ -677,245 +670,61 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="turbine-library-interface">
-<h1>Turbine Library Interface<a class="headerlink" href="#turbine-library-interface" title="Link to this heading">#</a></h1>
-<p>FLORIS allows users to select from a set of pre-defined turbines as well as load an external
-library of turbines. This reference demonstrates how to load, compare, and interact with the
-basic turbine properties prior to wake modeling.</p>
-<section id="setup">
-<h2>Setup<a class="headerlink" href="#setup" title="Link to this heading">#</a></h2>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">floris.turbine_library</span><span class="w"> </span><span class="kn">import</span> <span class="n">TurbineInterface</span><span class="p">,</span> <span class="n">TurbineLibrary</span>
-</pre></div>
-</div>
-</div>
-</div>
+  <section class="tex2jax_ignore mathjax_ignore" id="turbine-library">
+<span id="id1"></span><h1>Turbine Library<a class="headerlink" href="#turbine-library" title="Link to this heading">#</a></h1>
+<p>FLORIS includes a library of predefined wind turbine models that can be used to quickly set up
+simulations without needing to define the turbine characteristics manually. These include standard
+reference wind turbines as well as fictional wind turbine models for the purpose of demonstrating
+various features of FLORIS. These turbines are stored in the <code class="docutils literal notranslate"><span class="pre">floris.turbine_library</span></code> module.</p>
+<section id="nrel-5mw-reference-wind-turbine">
+<h2>NREL 5MW reference wind turbine<a class="headerlink" href="#nrel-5mw-reference-wind-turbine" title="Link to this heading">#</a></h2>
+<p>FLORIS representation of the NREL 5MW reference wind turbine <span id="id2">Jonkman <em>et al.</em> [<a class="reference internal" href="bibliography.html#id33" title="J. Jonkman, S. Butterfield, W. Musial, and G. Scott. Definition of a 5-MW reference wind turbine for offshore system development. Technical Report NREL/TP-500-38060, National Renewable Energy Laboratory, 2009. URL: http://www.osti.gov/servlets/purl/947422-nhrlni/, doi:10.2172/947422.">1</a>]</span>. Data
+based on <a class="github reference external" href="https://github.com/NREL/turbine-models/blob/master/Offshore/NREL_5MW_126_RWT_corrected.csv">NREL/turbine-models</a>.
+Specified as <code class="docutils literal notranslate"><span class="pre">&quot;nrel_5MW&quot;</span></code> in the <code class="docutils literal notranslate"><span class="pre">turbine_type</span></code> field of the FLORIS input dictionary.</p>
+<p>The NREL 5MW turbine is the default turbine model used in most FLORIS examples and tutorials. It is
+also the model used if FLORIS is instantiated in the defaults configuration using
+<code class="docutils literal notranslate"><span class="pre">FlorisModel(&quot;defaults&quot;)</span></code>.</p>
 </section>
-<section id="interacting-with-a-single-turbine">
-<h2>Interacting With A Single Turbine<a class="headerlink" href="#interacting-with-a-single-turbine" title="Link to this heading">#</a></h2>
-<p>There are a few different ways that a <code class="docutils literal notranslate"><span class="pre">TurbineInterface</span></code> object can be created as demonstrated
-below. For convenience, we'll only consider the object created from the internal library
-(option 3).</p>
+<section id="iea-15mw-reference-wind-turbine">
+<h2>IEA 15MW reference wind turbine<a class="headerlink" href="#iea-15mw-reference-wind-turbine" title="Link to this heading">#</a></h2>
+<p>FLORIS representation of the IEA 15MW reference wind turbine <span id="id3">Gaertner <em>et al.</em> [<a class="reference internal" href="bibliography.html#id35" title="Evan Gaertner, Latha Sethuraman, Benjamin Anderson, Garrett Barter, Nikhar Abbas, Pietro Bortolotti, George Scott, Roland Feil, Matthew Shields, Jennifer Rinker, Frederik Zahle, Fanzhong Meng, Witold Skrzypinski, Henrik Bredmose, Katherine Dykes, Christopher Allen, and Anthony Viselli. IEA Wind TCP Task 37: Definition of the IEA 15-Megawatt offshore reference wind turbine. Technical Report NREL/TP-5000-75698, International Energy Agency, 2020. URL: https://research-hub.nrel.gov/en/publications/iea-wind-tcp-task-37-definition-of-the-iea-15-megawatt-offshore-r.">3</a>]</span>. Data
+based on <a class="github reference external" href="https://github.com/IEAWindTask37/IEA-15-240-RWT/blob/master/Documentation/IEA-15-240-RWT_tabular.xlsx">IEAWindTask37/IEA-15-240-RWT</a>.
+Specified as <code class="docutils literal notranslate"><span class="pre">&quot;iea_15MW&quot;</span></code> in the <code class="docutils literal notranslate"><span class="pre">turbine_type</span></code> field of the FLORIS input dictionary.</p>
+<p>The IEA 15MW turbine is used in the following examples:</p>
 <ul class="simple">
-<li><p>Option 1: Load from a <code class="docutils literal notranslate"><span class="pre">Turbine</span></code> object:
-<code class="docutils literal notranslate"><span class="pre">ti</span> <span class="pre">=</span> <span class="pre">TurbineInterface(turbine_obj)</span></code></p></li>
-<li><p>Option 2: Load from a turbine configuration dictionary:
-<code class="docutils literal notranslate"><span class="pre">ti</span> <span class="pre">=</span> <span class="pre">TurbineInterface.from_turbine_dict(turbine_dict)</span></code></p></li>
-<li><p>Option 3a: Load a file from the internal turbine library:
-<code class="docutils literal notranslate"><span class="pre">ti</span> <span class="pre">=</span> <span class="pre">TurbineInterface.from_library(&quot;internal&quot;,</span> <span class="pre">&quot;iea_15MW.yaml&quot;)</span></code></p></li>
-<li><p>Option 3b: Load a file from the internal turbine library:
-<code class="docutils literal notranslate"><span class="pre">ti</span> <span class="pre">=</span> <span class="pre">TurbineInterface.from_internal_library(&quot;iea_15MW.yaml&quot;)</span></code></p></li>
-<li><p>Option 4: Load a file from an external turbine library:
-<code class="docutils literal notranslate"><span class="pre">ti</span> <span class="pre">=</span> <span class="pre">TurbineInterface.from_library(&quot;path/to/user/library&quot;,</span> <span class="pre">&quot;iea_15MW.yaml&quot;)</span></code></p></li>
-<li><p>Option 5: Load a file from anywhere:
-<code class="docutils literal notranslate"><span class="pre">ti</span> <span class="pre">=</span> <span class="pre">TurbineInterface.from_yaml(&quot;path/to/turbine.yaml&quot;)</span></code></p></li>
+<li><p>examples/examples_control_types/004_helix_active_wake_mixing.py</p></li>
 </ul>
-<section id="single-dimensional-turbine">
-<h3>Single Dimensional Turbine<a class="headerlink" href="#single-dimensional-turbine" title="Link to this heading">#</a></h3>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ti</span> <span class="o">=</span> <span class="n">TurbineInterface</span><span class="o">.</span><span class="n">from_library</span><span class="p">(</span><span class="s2">&quot;internal&quot;</span><span class="p">,</span> <span class="s2">&quot;iea_15MW.yaml&quot;</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</div>
-<section id="plot-the-core-attributes">
-<h4>Plot the core attributes<a class="headerlink" href="#plot-the-core-attributes" title="Link to this heading">#</a></h4>
-<p>For <code class="docutils literal notranslate"><span class="pre">TurbineInterface</span></code>, the core functionality is the power and thrust computation and plotting.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ti</span><span class="o">.</span><span class="n">plot_power_curve</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<img alt="_images/1caf9a1575e98fe97f6646ae023a17c6a2b7912733c546440779f3328cd0c44c.png" src="_images/1caf9a1575e98fe97f6646ae023a17c6a2b7912733c546440779f3328cd0c44c.png" />
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ti</span><span class="o">.</span><span class="n">plot_thrust_coefficient_curve</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<img alt="_images/464c20d4509985ddfa0db30f5509172d2414623a958550ea8f539f7463bc99ee.png" src="_images/464c20d4509985ddfa0db30f5509172d2414623a958550ea8f539f7463bc99ee.png" />
-</div>
-</div>
 </section>
-</section>
-<section id="interacting-with-a-multi-dimensional-turbine">
-<h3>Interacting With A Multi-Dimensional Turbine<a class="headerlink" href="#interacting-with-a-multi-dimensional-turbine" title="Link to this heading">#</a></h3>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ti_md</span> <span class="o">=</span> <span class="n">TurbineInterface</span><span class="o">.</span><span class="n">from_library</span><span class="p">(</span><span class="s2">&quot;internal&quot;</span><span class="p">,</span> <span class="s2">&quot;iea_15MW_multi_dim_cp_ct.yaml&quot;</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</div>
-<section id="id1">
-<h4>Plot the core attributes<a class="headerlink" href="#id1" title="Link to this heading">#</a></h4>
-<p>In this example, we'll demonstrate how the usage for a multi-dimensional turbine is exactly the same, and how to produce cleaner figures.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ti_md</span><span class="o">.</span><span class="n">plot_power_curve</span><span class="p">(</span>
-    <span class="n">fig_kwargs</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;figsize&quot;</span><span class="p">:</span> <span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">3</span><span class="p">)},</span>  <span class="c1"># The legend is a bit wider, so we&#39;ll need to change the dimensions</span>
-    <span class="n">legend_kwargs</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;fontsize&quot;</span><span class="p">:</span> <span class="mi">6</span><span class="p">},</span>  <span class="c1"># The labels are quite long, so let&#39;s shrink the font</span>
-<span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<img alt="_images/91db4247eac48e7082ea994abad7b95941827dce547d2083735af8c24b55dac6.png" src="_images/91db4247eac48e7082ea994abad7b95941827dce547d2083735af8c24b55dac6.png" />
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ti_md</span><span class="o">.</span><span class="n">plot_thrust_coefficient_curve</span><span class="p">(</span>
-    <span class="n">legend_kwargs</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;fontsize&quot;</span><span class="p">:</span> <span class="mi">6</span><span class="p">},</span>  <span class="c1"># The labels are quite long, so let&#39;s shrink the font</span>
-<span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<img alt="_images/71b01e046549fd25cd921114db942807f984f5e0bd5be36f631c0b3d020b8e8e.png" src="_images/71b01e046549fd25cd921114db942807f984f5e0bd5be36f631c0b3d020b8e8e.png" />
-</div>
-</div>
-</section>
-</section>
-</section>
-<section id="compare-multiple-turbines">
-<h2>Compare multiple turbines<a class="headerlink" href="#compare-multiple-turbines" title="Link to this heading">#</a></h2>
-<p>The other class provided by the turbine library is the <code class="docutils literal notranslate"><span class="pre">TurbineLibrary</span></code> object, which allows users
-to simultaneously load internal and external turbine library configurations and compare them.</p>
-<p>Note that turbine names can overlap between the internal and external turbine libraries in this
-interface, so a little more care is required. This is distinct from how turbine inputs are
-treated through <code class="docutils literal notranslate"><span class="pre">FlorisInterface</span></code> via <code class="docutils literal notranslate"><span class="pre">floris.simulation.farm</span></code> where duplicate turbine names
-will raise an error.</p>
-<section id="loading-the-libraries">
-<h3>Loading the libraries<a class="headerlink" href="#loading-the-libraries" title="Link to this heading">#</a></h3>
-<p>Loading a turbine library is a 2 or more step process depending on how many turbine libraries
-are going to be compared.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Initialize the turbine library (no definitions required!)</span>
-<span class="n">tl</span> <span class="o">=</span> <span class="n">TurbineLibrary</span><span class="p">()</span>
-
-<span class="c1"># Load the internal library, except the IEA 15MW turbine</span>
-<span class="n">tl</span><span class="o">.</span><span class="n">load_internal_library</span><span class="p">(</span><span class="n">exclude</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;iea_15MW.yaml&quot;</span><span class="p">])</span>
-<span class="k">for</span> <span class="n">turbine</span> <span class="ow">in</span> <span class="n">tl</span><span class="o">.</span><span class="n">turbine_map</span><span class="p">:</span>
-    <span class="nb">print</span><span class="p">(</span><span class="n">turbine</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>nrel_5MW
-iea_15MW_floating
-iea_10MW
-iea_15MW_multi_dim_cp_ct
-</pre></div>
-</div>
-</div>
-</div>
-<p>In addition to the <code class="docutils literal notranslate"><span class="pre">load_internal_library</span></code> method, there is a <code class="docutils literal notranslate"><span class="pre">load_external_library</span></code> method with
-the same parameterizations, but with an argument for a new library file path.</p>
-<p>We can also override previously ignored or loaded files by rerunning the load method again. Notice
-how we use <code class="docutils literal notranslate"><span class="pre">which=[&quot;x_20MW.yaml&quot;]</span></code> to now include the file. This makes it so we only load the one
-turbine configuration, however, the same could be achieved by specifying none of the keyword
-arguments.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">tl</span><span class="o">.</span><span class="n">load_internal_library</span><span class="p">(</span><span class="n">which</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;iea_15MW.yaml&quot;</span><span class="p">])</span>
-<span class="k">for</span> <span class="n">turbine</span> <span class="ow">in</span> <span class="n">tl</span><span class="o">.</span><span class="n">turbine_map</span><span class="p">:</span>
-    <span class="nb">print</span><span class="p">(</span><span class="n">turbine</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>nrel_5MW
-iea_15MW_floating
-iea_10MW
-iea_15MW_multi_dim_cp_ct
-iea_15MW
-</pre></div>
-</div>
-</div>
-</div>
-<p>Notice that the &quot;iea_15MW&quot; turbine is now loaded.</p>
-</section>
-<section id="comparing-turbines">
-<h3>Comparing turbines<a class="headerlink" href="#comparing-turbines" title="Link to this heading">#</a></h3>
-<p>There are a number of methods that will plot the varying properties for each turbine against each
-other, but here the primary output will be displayed.</p>
-<p>It should be noted that the 15MW turbines are all variations of each other, and so the
-multi-dimensional example is removed in favor the of the floating 15MW turbine to highlight
-a multi-dimensional turbine in relation to the standard 15 MW example.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">tl</span><span class="o">.</span><span class="n">plot_comparison</span><span class="p">(</span>
-    <span class="n">exclude</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;iea_15MW_multi_dim_cp_ct&quot;</span><span class="p">],</span>  <span class="c1"># Remove a turbine just for demonstration</span>
-    <span class="n">wind_speeds</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="mi">61</span><span class="p">),</span>  <span class="c1"># 0 -&gt; 30 m/s, every 0.5 m/s</span>
-    <span class="n">fig_kwargs</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;figsize&quot;</span><span class="p">:</span> <span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">8</span><span class="p">)},</span>  <span class="c1"># Size the figure appropriately for the docs page</span>
-    <span class="n">plot_kwargs</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;linewidth&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">},</span>  <span class="c1"># Ensure the line plots look nice</span>
-    <span class="n">legend_kwargs</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;fontsize&quot;</span><span class="p">:</span> <span class="mi">5</span><span class="p">},</span>  <span class="c1"># Ensure all the legend items fit</span>
-<span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<img alt="_images/1a983c66e6104cbac253c9fbdc159f71230fbe1686c68d33d9ab1f329088df4f.png" src="_images/1a983c66e6104cbac253c9fbdc159f71230fbe1686c68d33d9ab1f329088df4f.png" />
-</div>
-</div>
-<p>Alternatively, these can all be ploted individually with:</p>
+<section id="iea-10mw-reference-wind-turbine">
+<h2>IEA 10MW reference wind turbine<a class="headerlink" href="#iea-10mw-reference-wind-turbine" title="Link to this heading">#</a></h2>
+<p>FLORIS representation of the IEA 10MW reference wind turbine <span id="id4">Kainz <em>et al.</em> [<a class="reference internal" href="bibliography.html#id34" title="Samuel Kainz, Julian Quick, Mauricio Souza de Alencar, Sebastian Sanchez Perez-Moreno, Katherine Dykes, Christopher Bay, Michiel B. Zaaijer, and Pietro Bortolotti. IEA-Wind 740-10MW reference offshore wind plants. Technical Report, International Energy Agency, 2024. URL: https://research-hub.nrel.gov/en/publications/iea-wind-tcp-task-55-the-iea-wind-740-10-mw-reference-offshore-wi.">2</a>]</span>. Data
+based on <a class="github reference external" href="https://github.com/NREL/turbine-models/blob/master/Offshore/IEA_10MW_198_RWT.csv">NREL/turbine-models</a>.
+Specified as <code class="docutils literal notranslate"><span class="pre">&quot;iea_10MW&quot;</span></code> in the <code class="docutils literal notranslate"><span class="pre">turbine_type</span></code> field of the FLORIS input dictionary.</p>
+<p>The IEA 10MW turbine is used in the following examples:</p>
 <ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">plot_power_curves()</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">plot_Ct_curves()</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">plot_rotor_diameters()</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">plot_hub_heights()</span></code></p></li>
+<li><p>examples/examples_turbine/002_multiple_turbine_types.py</p></li>
 </ul>
-<p>For a text based approach, we can access the attributes like the following:</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">header</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="se">\</span>
-<span class="si">{</span><span class="s1">&#39;Turbine&#39;</span><span class="si">:</span><span class="s2">&gt;25</span><span class="si">}</span><span class="s2"> | </span><span class="se">\</span>
-<span class="si">{</span><span class="s1">&#39;Rotor Diameter (m)&#39;</span><span class="si">:</span><span class="s2">&gt;18</span><span class="si">}</span><span class="s2"> | </span><span class="se">\</span>
-<span class="si">{</span><span class="s1">&#39;Hub Height (m)&#39;</span><span class="si">:</span><span class="s2">&gt;14</span><span class="si">}</span><span class="s2"> | </span><span class="se">\</span>
-<span class="si">{</span><span class="s1">&#39;TSR&#39;</span><span class="si">:</span><span class="s2">&gt;6</span><span class="si">}</span><span class="s2"> | </span><span class="se">\</span>
-<span class="si">{</span><span class="s1">&#39;Air Density (ρ)&#39;</span><span class="si">:</span><span class="s2">&gt;15</span><span class="si">}</span><span class="s2"> | </span><span class="se">\</span>
-<span class="si">{</span><span class="s1">&#39;Tilt (º)&#39;</span><span class="si">:</span><span class="s2">&gt;8</span><span class="si">}</span><span class="se">\</span>
-<span class="s2">&quot;</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">header</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;-&quot;</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">header</span><span class="p">))</span>
-<span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">tl</span><span class="o">.</span><span class="n">turbine_map</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">name</span><span class="si">:</span><span class="s2">&gt;25</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s2">&quot; | &quot;</span><span class="p">)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">t</span><span class="o">.</span><span class="n">turbine</span><span class="o">.</span><span class="n">rotor_diameter</span><span class="si">:</span><span class="s2">&gt;18,.2f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s2">&quot; | &quot;</span><span class="p">)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">t</span><span class="o">.</span><span class="n">turbine</span><span class="o">.</span><span class="n">hub_height</span><span class="si">:</span><span class="s2">&gt;14,.1f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s2">&quot; | &quot;</span><span class="p">)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">t</span><span class="o">.</span><span class="n">turbine</span><span class="o">.</span><span class="n">TSR</span><span class="si">:</span><span class="s2">&gt;6,.1f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s2">&quot; | &quot;</span><span class="p">)</span>
-    <span class="k">if</span> <span class="n">t</span><span class="o">.</span><span class="n">turbine</span><span class="o">.</span><span class="n">multi_dimensional_cp_ct</span><span class="p">:</span>
-        <span class="n">condition_keys</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">t</span><span class="o">.</span><span class="n">turbine</span><span class="o">.</span><span class="n">power_thrust_table</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
-        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">t</span><span class="o">.</span><span class="n">turbine</span><span class="o">.</span><span class="n">power_thrust_table</span><span class="p">[</span><span class="n">condition_keys</span><span class="p">[</span><span class="mi">0</span><span class="p">]][</span><span class="s1">&#39;ref_air_density&#39;</span><span class="p">]</span><span class="si">:</span><span class="s2">&gt;15,.3f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s2">&quot; | &quot;</span><span class="p">)</span>
-        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">t</span><span class="o">.</span><span class="n">turbine</span><span class="o">.</span><span class="n">power_thrust_table</span><span class="p">[</span><span class="n">condition_keys</span><span class="p">[</span><span class="mi">0</span><span class="p">]][</span><span class="s1">&#39;ref_tilt&#39;</span><span class="p">]</span><span class="si">:</span><span class="s2">&gt;8,.3f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-    <span class="k">else</span><span class="p">:</span>
-        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">t</span><span class="o">.</span><span class="n">turbine</span><span class="o">.</span><span class="n">power_thrust_table</span><span class="p">[</span><span class="s1">&#39;ref_air_density&#39;</span><span class="p">]</span><span class="si">:</span><span class="s2">&gt;15,.3f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s2">&quot; | &quot;</span><span class="p">)</span>
-        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">t</span><span class="o">.</span><span class="n">turbine</span><span class="o">.</span><span class="n">power_thrust_table</span><span class="p">[</span><span class="s1">&#39;ref_tilt&#39;</span><span class="p">]</span><span class="si">:</span><span class="s2">&gt;8,.3f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>                  Turbine | Rotor Diameter (m) | Hub Height (m) |    TSR | Air Density (ρ) | Tilt (º)
------------------------------------------------------------------------------------------------------
-                 nrel_5MW |             125.88 |           90.0 |    8.0 |           1.225 |    5.000
-        iea_15MW_floating |             242.24 |          150.0 |    8.0 |           1.225 |    6.000
-                 iea_10MW |             198.00 |          119.0 |    8.0 |           1.225 |    6.000
- iea_15MW_multi_dim_cp_ct |             242.24 |          150.0 |    8.0 |           1.225 |    6.000
-                 iea_15MW |             242.24 |          150.0 |    8.0 |           1.225 |    6.000
-</pre></div>
-</div>
-</div>
-</div>
 </section>
+<section id="iea-15mw-multidimensional">
+<h2>IEA 15MW multidimensional<a class="headerlink" href="#iea-15mw-multidimensional" title="Link to this heading">#</a></h2>
+<p>Fictional IEA 15MW turbine model used to demonstrate the use of multidimensional power and thrust
+coefficient data. Reads in fictional multidimensional data describing the power and thrust coefficient
+relationships on wave period <code class="docutils literal notranslate"><span class="pre">Tp</span></code> and wave height <code class="docutils literal notranslate"><span class="pre">Hs</span></code> from <code class="docutils literal notranslate"><span class="pre">iea_15MW_multi_dim_Tp_Hs.csv</span></code> in the
+<code class="docutils literal notranslate"><span class="pre">turbine_library</span></code> folder. Specified as <code class="docutils literal notranslate"><span class="pre">&quot;iea_15MW_multi_dim&quot;</span></code> in the <code class="docutils literal notranslate"><span class="pre">turbine_type</span></code> field of the FLORIS
+input dictionary. This data should be treated as fictional and for demonstrative purposes only.</p>
+<p>This fictional turbine model is not currently used in examples.</p>
+</section>
+<section id="iea-15mw-floating-multidimensional">
+<h2>IEA 15MW floating, multidimensional<a class="headerlink" href="#iea-15mw-floating-multidimensional" title="Link to this heading">#</a></h2>
+<p>The same as the multidimensional IEA 15MW turbine model above, but with an additional fictional
+floating platform tilt table. This model is used to demonstrate the floating wind turbine capabilities
+in FLORIS. Specified as <code class="docutils literal notranslate"><span class="pre">&quot;iea_15MW_floating_multi_dim&quot;</span></code> in the <code class="docutils literal notranslate"><span class="pre">turbine_type</span></code> field of the FLORIS input
+dictionary. This data should be treated as fictional and for demonstrative purposes only.</p>
+<p>This fictional turbine model is used in the following examples:</p>
+<ul class="simple">
+<li><p>examples/examples_multidim/001_multi_dimensional_cp_ct.py</p></li>
+<li><p>examples/examples_multidim/002_multi_dimensional_cp_ct_2Hs.py</p></li>
+</ul>
 </section>
 </section>
 
@@ -950,20 +759,20 @@ a multi-dimensional turbine in relation to the standard 15 MW example.</p>
                   
 <div class="prev-next-area">
     <a class="left-prev"
-       href="floating_wind_turbine.html"
+       href="multidimensional_wind_turbine.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Floating Wind Turbine Modeling</p>
+        <p class="prev-next-title">Multidimensional Wind Turbine</p>
       </div>
     </a>
     <a class="right-next"
-       href="operation_models_user.html"
+       href="advanced_concepts.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Turbine Operation Models</p>
+        <p class="prev-next-title">Advanced Concepts</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -983,23 +792,11 @@ a multi-dimensional turbine in relation to the standard 15 MW example.</p>
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#setup">Setup</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#interacting-with-a-single-turbine">Interacting With A Single Turbine</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#single-dimensional-turbine">Single Dimensional Turbine</a><ul class="nav section-nav flex-column">
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#plot-the-core-attributes">Plot the core attributes</a></li>
-</ul>
-</li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#interacting-with-a-multi-dimensional-turbine">Interacting With A Multi-Dimensional Turbine</a><ul class="nav section-nav flex-column">
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Plot the core attributes</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#compare-multiple-turbines">Compare multiple turbines</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#loading-the-libraries">Loading the libraries</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#comparing-turbines">Comparing turbines</a></li>
-</ul>
-</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#nrel-5mw-reference-wind-turbine">NREL 5MW reference wind turbine</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#iea-15mw-reference-wind-turbine">IEA 15MW reference wind turbine</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#iea-10mw-reference-wind-turbine">IEA 10MW reference wind turbine</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#iea-15mw-multidimensional">IEA 15MW multidimensional</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#iea-15mw-floating-multidimensional">IEA 15MW floating, multidimensional</a></li>
 </ul>
   </nav></div>
 
