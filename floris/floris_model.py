@@ -142,6 +142,7 @@ class FlorisModel(LoggingManager):
         solver_settings: dict | None = None,
         heterogeneous_inflow_config=None,
         wind_data: type[WindDataBase] | None = None,
+        multidim_conditions: dict | None = None,
     ):
         """
         Instantiate a new Floris object with updated conditions set by arguments. Any parameters
@@ -264,6 +265,8 @@ class FlorisModel(LoggingManager):
 
             flow_field_dict["heterogeneous_inflow_config"] = heterogeneous_inflow_config
 
+        if multidim_conditions is not None:
+            flow_field_dict["multidim_conditions"] = multidim_conditions
 
 
         if solver_settings is not None:
@@ -401,6 +404,7 @@ class FlorisModel(LoggingManager):
         awc_amplitudes: NDArrayFloat | list[float] | list[float, None] | None = None,
         awc_frequencies: NDArrayFloat | list[float] | list[float, None] | None = None,
         disable_turbines: NDArrayBool | list[bool] | None = None,
+        multidim_conditions: dict | None = None,
     ):
         """
         Set the wind conditions and operation setpoints for the wind farm.
@@ -456,6 +460,7 @@ class FlorisModel(LoggingManager):
             solver_settings=solver_settings,
             heterogeneous_inflow_config=heterogeneous_inflow_config,
             wind_data=wind_data,
+            multidim_conditions=multidim_conditions,
         )
 
         # If the yaw angles or power setpoints are not the default, set them back to the
@@ -1058,6 +1063,7 @@ class FlorisModel(LoggingManager):
                 'y': self.core.flow_field.heterogeneous_inflow_config['y'],
                 'speed_multipliers':
                     self.core.flow_field.heterogeneous_inflow_config['speed_multipliers'][findex:findex+1],
+                'interp_method': self.core.flow_field.heterogeneous_inflow_config['interp_method'],
             }
             if 'z' in self.core.flow_field.heterogeneous_inflow_config:
                 heterogeneous_inflow_config['z'] = (
@@ -1167,7 +1173,7 @@ class FlorisModel(LoggingManager):
                 Defaults to None.
             y_bounds (tuple, optional): Limits of output array (in m).
                 Defaults to None.
-            finder_for_viz (int, optional): Index of the condition to visualize.
+            findex_for_viz (int, optional): Index of the condition to visualize.
 
         Returns:
             :py:class:`~.tools.cut_plane.CutPlane`: containing values
@@ -1381,6 +1387,25 @@ class FlorisModel(LoggingManager):
             raise ValueError("x, y, and z must be the same size")
 
         return self.core.solve_for_points(x, y, z)
+
+    def sample_ti_at_points(self, x: NDArrayFloat, y: NDArrayFloat, z: NDArrayFloat):
+        """
+        Extract the turbulence intensity at points in the flow.
+
+        Args:
+            x (1DArrayFloat | list): x-locations of points where TI is desired.
+            y (1DArrayFloat | list): y-locations of points where TI is desired.
+            z (1DArrayFloat | list): z-locations of points where TI is desired.
+
+        Returns:
+            3DArrayFloat containing turbulence intensity with dimensions
+            (# of findex, # of sample points)
+        """
+
+        self.sample_flow_at_points(x, y, z) # Solve, but ignore returned velocities
+
+        # Remove grid dimensions and return sorted TI field
+        return self.core.flow_field.turbulence_intensity_field_sorted[:, :, 0, 0]
 
     def sample_velocity_deficit_profiles(
         self,

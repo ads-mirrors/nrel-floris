@@ -521,3 +521,104 @@ def test_copy():
     pufmodel_copy = pufmodel.copy()
     assert isinstance(pufmodel_copy, UncertainFlorisModel)
     assert isinstance(pufmodel_copy.fmodel_expanded, ParFlorisModel)
+
+def test_invalid_wd_std():
+    """
+    Test that the UncertainFlorisModel raises asn error with a wd_std of 0 or negative.
+    """
+    with pytest.raises(ValueError):
+        UncertainFlorisModel(configuration=YAML_INPUT, wd_std=0.0)
+
+    with pytest.raises(ValueError):
+        UncertainFlorisModel(configuration=YAML_INPUT, wd_std=-1.0)
+
+def test_turbine_average_velocities_shape_and_type():
+    """
+    Test that turbine_average_velocities returns the correct shape and type.
+    """
+    ufmodel = UncertainFlorisModel(configuration=YAML_INPUT)
+
+    # Set up a simple 2-turbine wind farm
+    ufmodel.set(
+        layout_x=[0, 500],
+        layout_y=[0, 0],
+        wind_speeds=[8.0, 10.0],
+        wind_directions=[270.0, 280.0],
+        turbulence_intensities=[0.06, 0.06],
+    )
+
+    ufmodel.run()
+
+    # Get turbine average velocities
+    velocities = ufmodel.turbine_average_velocities
+
+    # Check type
+    assert isinstance(velocities, np.ndarray)
+
+    # Check shape: should be (n_findex, n_turbines)
+    expected_shape = (ufmodel.n_findex, ufmodel.n_turbines)
+    assert velocities.shape == expected_shape
+
+    # Check that values are positive and reasonable
+    assert np.all(velocities > 0)
+    assert np.all(velocities < 20)  # Reasonable upper bound for wind speeds
+
+
+def test_turbine_average_velocities_free_stream():
+    """
+    Test that turbine_average_velocities returns the correct shape and type.
+    """
+    ufmodel = UncertainFlorisModel(configuration=YAML_INPUT)
+
+    # Set up a simple 2-turbine wind farm with no wake interactions
+    ufmodel.set(
+        layout_x=[0, 0],
+        layout_y=[0, 1000],
+        wind_speeds=[8.0, 10.0],
+        wind_directions=[270.0, 280.0],
+        turbulence_intensities=[0.06, 0.06],
+        wind_shear=0.0,  # Turn off shear to simplify the test
+    )
+
+    ufmodel.run()
+
+    # Get turbine average velocities
+    velocities = ufmodel.turbine_average_velocities
+
+    # Velocities should be the same as the wind speeds but n_turbines columns repeated
+    assert np.allclose(velocities, np.array([[8.0, 8.0], [10.0, 10.0]]))
+
+def test_turbine_average_velocities_uncertain_vs_certain():
+    """
+    Test that turbine_average_velocities returns the same values for uncertain and certain models.
+    """
+
+    # Set up (certain) FlorisModel
+    fmodel = FlorisModel(configuration=YAML_INPUT)
+    fmodel.set(
+        layout_x=[0, 500],
+        layout_y=[0, 0],
+        wind_speeds=[8.0, 10.0],
+        wind_directions=[270.0, 270.0],
+        turbulence_intensities=[0.06, 0.06],
+    )
+    fmodel.run()
+    velocities_certain = fmodel.turbine_average_velocities
+
+    # Create equivalent uncertain model
+    ufmodel = UncertainFlorisModel(configuration=fmodel)
+    ufmodel.run()
+    velocities_uncertain = ufmodel.turbine_average_velocities
+
+    # Check that the upstream turbine matches
+    assert np.allclose(velocities_uncertain[:, 0], velocities_certain[:, 0])
+    # Downstream turbine higher than certain when aligned
+    assert np.all(velocities_uncertain[:, 1] > velocities_certain[:, 1])
+
+    # Create a near 0-std uncertain model
+    ufmodel_zero_std = UncertainFlorisModel(configuration=fmodel, wd_std=1e-5)
+    ufmodel_zero_std.run()
+    velocities_uncertain_zero_std = ufmodel_zero_std.turbine_average_velocities
+
+    # Check that the uncertain model with 0 std matches the certain model
+    assert np.allclose(velocities_uncertain_zero_std, velocities_certain)

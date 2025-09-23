@@ -10,7 +10,7 @@ from typing import (
 import numpy as np
 
 from floris import FlorisModel
-from floris.core import State
+from floris.core import average_velocity, State
 from floris.logging_manager import LoggingManager
 from floris.par_floris_model import ParFlorisModel
 from floris.type_dec import (
@@ -85,6 +85,10 @@ class UncertainFlorisModel(LoggingManager):
         fix_yaw_to_nominal_direction=False,
         verbose=False,
     ):
+        # Check validity of inputs
+        if wd_std <= 0:
+            raise ValueError("wd_std must be strictly greater than 0.")
+
         # Save these inputs
         self.wd_resolution = wd_resolution
         self.ws_resolution = ws_resolution
@@ -272,8 +276,8 @@ class UncertainFlorisModel(LoggingManager):
         """
 
         # Pass to off-class function
-        result = map_turbine_powers_uncertain(
-            unique_turbine_powers=self.fmodel_expanded._get_turbine_powers(),
+        result = map_turbine_values_uncertain(
+            unique_turbine_values=self.fmodel_expanded._get_turbine_powers(),
             map_to_expanded_inputs=self.map_to_expanded_inputs,
             weights=self.weights,
             n_unexpanded=self.n_unexpanded,
@@ -1142,6 +1146,27 @@ class UncertainFlorisModel(LoggingManager):
         """
         return self.fmodel_unexpanded.core
 
+    @property
+    def turbine_average_velocities(self) -> NDArrayFloat:
+        # Get the expanded velocities
+        expanded_velocities = average_velocity(
+            velocities=self.fmodel_expanded.core.flow_field.u,
+            method=self.fmodel_expanded.core.grid.average_method,
+            cubature_weights=self.fmodel_expanded.core.grid.cubature_weights,
+        )
+
+        # Pass to off-class function
+        result = map_turbine_values_uncertain(
+            unique_turbine_values=expanded_velocities,
+            map_to_expanded_inputs=self.map_to_expanded_inputs,
+            weights=self.weights,
+            n_unexpanded=self.n_unexpanded,
+            n_sample_points=self.n_sample_points,
+            n_turbines=self.fmodel_unexpanded.core.farm.n_turbines,
+        )
+
+        return result
+
 
 def map_turbine_powers_uncertain(
     unique_turbine_powers,
@@ -1151,35 +1176,57 @@ def map_turbine_powers_uncertain(
     n_sample_points,
     n_turbines,
 ):
-    """Calculates the power at each turbine in the wind farm based on uncertainty weights.
+    """
+    Alias for map_turbine_values_uncertain.
+    """
+    # Deprecation warning
+    print("map_turbine_powers_uncertain is deprecated, use map_turbine_values_uncertain instead.")
+    return map_turbine_values_uncertain(
+        unique_turbine_values=unique_turbine_powers,
+        map_to_expanded_inputs=map_to_expanded_inputs,
+        weights=weights,
+        n_unexpanded=n_unexpanded,
+        n_sample_points=n_sample_points,
+        n_turbines=n_turbines,
+    )
 
-    This function calculates the power at each turbine in the wind farm, considering
-    the underlying turbine powers and applying a weighted sum to handle uncertainty.
+def map_turbine_values_uncertain(
+    unique_turbine_values,
+    map_to_expanded_inputs,
+    weights,
+    n_unexpanded,
+    n_sample_points,
+    n_turbines,
+):
+    """Calculates values at each turbine in the wind farm based on uncertainty weights.
+
+    This function calculates the values (e.g. power, velocity) at each turbine in the wind farm,
+    considering the underlying turbine values and applying a weighted sum to handle uncertainty.
 
     Args:
-        unique_turbine_powers (NDArrayFloat): An array of unique turbine powers from the
-            underlying FlorisModel
-        map_to_expanded_inputs (NDArrayFloat): An array of indices mapping the unique powers to
-            the expanded powers
+        unique_turbine_values (NDArrayFloat): An array of unique turbine powers, velocities, etc
+            from the underlying FlorisModel
+        map_to_expanded_inputs (NDArrayFloat): An array of indices mapping the unique values to
+            the expanded values
         weights (NDArrayFloat): An array of weights for each wind direction sample point
         n_unexpanded (int): The number of unexpanded conditions
         n_sample_points (int): The number of wind direction sample points
         n_turbines (int): The number of turbines in the wind farm
 
     Returns:
-        NDArrayFloat: An array containing the powers at each turbine for each findex.
+        NDArrayFloat: An array containing the values at each turbine for each findex.
 
     """
 
     # Expand back to the expanded value
-    expanded_turbine_powers = unique_turbine_powers[map_to_expanded_inputs]
+    expanded_turbine_values = unique_turbine_values[map_to_expanded_inputs]
 
     # Reshape the weights array to make it compatible with broadcasting
     weights_reshaped = weights[:, np.newaxis]
 
-    # Reshape expanded_turbine_powers into blocks
+    # Reshape expanded_turbine_values into blocks
     blocks = np.reshape(
-        expanded_turbine_powers,
+        expanded_turbine_values,
         (n_unexpanded, n_sample_points, n_turbines),
         order="F",
     )
@@ -1221,7 +1268,7 @@ class ApproxFlorisModel(UncertainFlorisModel):
             yaw_resolution,
             power_setpoint_resolution,
             awc_amplitude_resolution,
-            wd_std=1.0,
+            wd_std=1.0,  # Arbitrary nonzero value, not used since only one sample point
             wd_sample_points=[0],
             fix_yaw_to_nominal_direction=False,
             verbose=verbose,
